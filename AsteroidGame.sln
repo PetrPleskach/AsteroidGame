@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsteroidGame", "AsteroidGame\AsteroidGame.csproj", "{58863E38-A80B-4EDF-AAE4-642247FDC68C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{95AFE9A1-5BB0-425E-B3F8-146435855A58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "Tests\ConsoleTest\ConsoleTest.csproj", "{B9459491-41BD-428A-B17E-796D58A895B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{58863E38-A80B-4EDF-AAE4-642247FDC68C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58863E38-A80B-4EDF-AAE4-642247FDC68C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58863E38-A80B-4EDF-AAE4-642247FDC68C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9459491-41BD-428A-B17E-796D58A895B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9459491-41BD-428A-B17E-796D58A895B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9459491-41BD-428A-B17E-796D58A895B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9459491-41BD-428A-B17E-796D58A895B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B9459491-41BD-428A-B17E-796D58A895B6} = {95AFE9A1-5BB0-425E-B3F8-146435855A58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D0BDAE0B-64FB-4575-9013-3AC5568759FC}
