@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace AsteroidGame
 {
-    class BaseObject
+    class BaseVisualObject
     {
         protected Point Position;
         protected Point Direction;
         protected Size Size;
 
-        public BaseObject() { }
-        public BaseObject(Point position, Point direction, Size size)
+        public BaseVisualObject() { }
+        public BaseVisualObject(Point position, Point direction, Size size)
         {
             Position = position;
             Direction = direction;

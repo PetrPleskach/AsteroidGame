@@ -12,6 +12,7 @@ namespace AsteroidGame
     {
         private static BufferedGraphicsContext contex;
         private static BufferedGraphics buffer;
+        private static BaseVisualObject[] gameObjects;
 
         public static int Width { get; set; }
         public static int Height { get; set; }
@@ -29,10 +30,23 @@ namespace AsteroidGame
         {
             Graphics graphics = buffer.Graphics;
             graphics.Clear(Color.Black);
-            graphics.DrawRectangle(Pens.White, new Rectangle(100, 100, 200, 200));
-            graphics.FillEllipse(Brushes.Red, new Rectangle(100, 100, 200, 200));
+            foreach (BaseVisualObject gameObject in gameObjects)            
+                gameObject.Draw(graphics);            
 
             buffer.Render();
+        }
+        public static void Load()
+        {
+            const int visualObjectsCount = 30;
+            gameObjects = new BaseVisualObject[visualObjectsCount];
+
+            for (int i = 0; i < gameObjects.Length; i++)
+                gameObjects[i] = new BaseVisualObject(new Point(600, i * 20), new Point(15 - i, 15 - i), new Size(20, 20));           
+        }
+        public static void Update()
+        {
+            foreach (BaseVisualObject gameObject in gameObjects)            
+                gameObject.Update();            
         }
     }
 }
