@@ -17,7 +17,15 @@ namespace AsteroidGame
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Form gameForm = new Form();
+            gameForm.Width = 800;
+            gameForm.Height = 600;
+            gameForm.StartPosition = FormStartPosition.CenterScreen;
+            gameForm.Show();
+            Game.Initialize(gameForm);
+            Game.Draw();
+            Application.Run(gameForm);
+            
         }
     }
 }
