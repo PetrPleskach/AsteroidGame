@@ -25,7 +25,18 @@ namespace AsteroidGame
             contex = BufferedGraphicsManager.Current;
             Graphics graphics = form.CreateGraphics();
             buffer = contex.Allocate(graphics, new Rectangle(0,0, Width, Height));
+            Load();
+            Timer timer = new Timer { Interval = 100 };
+            timer.Tick += Timer_Tick;
+            timer.Start();
         }
+
+        private static void Timer_Tick(object sender, EventArgs e)
+        {
+            Draw();
+            Update();
+        }
+
         public static void Draw()
         {
             Graphics graphics = buffer.Graphics;
@@ -41,12 +52,12 @@ namespace AsteroidGame
             gameObjects = new BaseVisualObject[visualObjectsCount];
 
             for (int i = 0; i < gameObjects.Length; i++)
-                gameObjects[i] = new BaseVisualObject(new Point(600, i * 20), new Point(15 - i, 15 - i), new Size(20, 20));           
+                gameObjects[i] = new BaseVisualObject(new Point(600, i * 20), new Point(15 - i, 20 - i), new Size(20, 20));           
         }
         public static void Update()
         {
             foreach (BaseVisualObject gameObject in gameObjects)            
-                gameObject.Update();            
+                gameObject.Update();     
         }
     }
 }

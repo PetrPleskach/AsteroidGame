@@ -29,10 +29,10 @@ namespace AsteroidGame
         {
             Position.X += Direction.X;
             Position.Y += Direction.Y;
-            if (Position.X < 0) Direction.X = -Direction.X;
-            if (Position.Y < 0) Direction.Y = -Direction.Y;
-            if (Position.X > Game.Width) Direction.X = -Direction.X;
-            if (Position.Y > Game.Height) Direction.Y = -Direction.Y;
+            if (Position.X <= 0) Direction.X = -Direction.X;
+            if (Position.Y <= 0) Direction.Y = -Direction.Y;
+            if (Position.X >= Game.Width - Size.Width) Direction.X = -Direction.X;
+            if (Position.Y >= Game.Height - Size.Height) Direction.Y = -Direction.Y;
         }
     }
 }
