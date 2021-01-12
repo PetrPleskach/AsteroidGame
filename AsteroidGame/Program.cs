@@ -22,6 +22,7 @@ namespace AsteroidGame
             gameForm.Height = 600;
             gameForm.StartPosition = FormStartPosition.CenterScreen;
             gameForm.Show();
+
             Game.Initialize(gameForm);
             Game.Draw();
             Application.Run(gameForm);
