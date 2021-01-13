@@ -53,10 +53,8 @@ namespace AsteroidGame
 
             for (int i = 0; i < gameObjects.Length/2; i++)
                 gameObjects[i] = new Planet(new Point(600, i * 20), new Point(15 - i, 20 - i), new Size(30, 30));
-            for (int i = gameObjects.Length/2; i < gameObjects.Length; i++)
-            {
-                gameObjects[i] = new BigStar(new Point(600, i * 20), new Point(i, 0), new Size(5, 5));
-            }
+            for (int i = gameObjects.Length/2; i < gameObjects.Length; i++)            
+                gameObjects[i] = new SmallStar(new Point(600, i * 20), new Point(i, 0), new Size(2, 2));            
         }
         public static void Update()
         {
