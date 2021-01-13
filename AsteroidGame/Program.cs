@@ -25,8 +25,7 @@ namespace AsteroidGame
 
             Game.Initialize(gameForm);
             Game.Draw();
-            Application.Run(gameForm);
-            
+            Application.Run(gameForm);            
         }
     }
 }

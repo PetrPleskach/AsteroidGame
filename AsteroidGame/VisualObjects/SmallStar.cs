@@ -9,18 +9,28 @@ namespace AsteroidGame
 {
     class SmallStar : Star
     {
-        private Random random = new Random();
-        private Color color;
+        private Random random = new Random();        
+        private Brush brush;//переменная для заливки
 
         public SmallStar(Point position, Point direction, Size size) : base(position, direction, size)
         {
-            color = Color.FromArgb(random.Next(150, 255), random.Next(150, 255), random.Next(150, 255));
+            //присваиваем начальный цвет            
+            brush = new SolidBrush(Color.FromArgb(random.Next(170, 255), random.Next(170, 255), random.Next(170, 255)));
         }
 
         public override void Draw(Graphics graphics)
-        {            
-            Brush brush = new SolidBrush(color);
-            graphics.FillEllipse(brush,Position.X, Position.Y, Size.Width, Size.Height);
+        {
+            graphics.FillEllipse(brush, Position.X, Position.Y, Size.Width, Size.Height);
+        }
+        public override void Update()
+        {
+            Position.X -= Direction.X;
+            if (Position.X < 0) 
+            { 
+                Position.X = Game.Width + Size.Width;
+                //меняем цвет для кисти
+                brush = new SolidBrush(Color.FromArgb(random.Next(170, 255), random.Next(170, 255), random.Next(170, 255)));
+            }
         }
     }
 }

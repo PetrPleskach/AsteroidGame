@@ -13,13 +13,16 @@ namespace AsteroidGame
 
         public override void Draw(Graphics graphics)
         {
+            //рисуем звезду
             graphics.DrawLine(Pens.White, Position.X, Position.Y, Position.X + Size.Width, Position.Y + Size.Height);
-            graphics.DrawLine(Pens.White, Position.X + Size.Width, Position.Y, Position.X, Position.Y + Size.Height);
+            graphics.DrawLine(Pens.White, Position.X + Size.Width, Position.Y, Position.X, Position.Y + Size.Height);            
         }
         public override void Update()
         {
-            Position.X = Position.X - Direction.X;
-            if (Position.X < 0) Position.X = Game.Width + Size.Width;
-        }
+            //обновляем положение звезды только по оси X
+            Position.X -= Direction.X;
+            if (Position.X < 0)
+                Position.X = Game.Width + Size.Width;
+        }        
     }
 }

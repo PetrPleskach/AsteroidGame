@@ -14,23 +14,30 @@ namespace AsteroidGame
         private static BufferedGraphics buffer;
         private static BaseVisualObject[] gameObjects;
 
+        //Ширина и высота игровой области
         public static int Width { get; set; }
         public static int Height { get; set; }
 
         public static void Initialize(Form form)
         {
+            //запоминаем размер формы
             Width = form.ClientSize.Width;
             Height = form.ClientSize.Height;
 
-            contex = BufferedGraphicsManager.Current;
-            Graphics graphics = form.CreateGraphics();
+            contex = BufferedGraphicsManager.Current;// Предоставляет доступ к главному буферу графического контекста для текущего приложения
+            Graphics graphics = form.CreateGraphics();// Создаем объект (поверхность рисования) и связываем его с формой
+            // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             buffer = contex.Allocate(graphics, new Rectangle(0,0, Width, Height));
-            Load();
-            Timer timer = new Timer { Interval = 100 };
-            timer.Tick += Timer_Tick;
+            Load();//Выполняем загрузку обьектов
+            Timer timer = new Timer { Interval = 100 };//Добавляем таймер, задаём интервал для вызова события
+            timer.Tick += Timer_Tick;//Создаём событие для таймера
             timer.Start();
         }
-
+        /// <summary>
+        /// перерисовывает и обновляет положение обьектов при каждом тике таймера
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private static void Timer_Tick(object sender, EventArgs e)
         {
             Draw();
@@ -42,7 +49,7 @@ namespace AsteroidGame
             Graphics graphics = buffer.Graphics;
             graphics.Clear(Color.Black);
             foreach (BaseVisualObject gameObject in gameObjects)
-                gameObject.Draw(graphics);            
+                gameObject.Draw(graphics);
 
             buffer.Render();
         }
@@ -52,7 +59,7 @@ namespace AsteroidGame
             gameObjects = new BaseVisualObject[visualObjectsCount];
 
             for (int i = 0; i < gameObjects.Length/2; i++)
-                gameObjects[i] = new Planet(new Point(600, i * 20), new Point(15 - i, 20 - i), new Size(30, 30));
+                gameObjects[i] = new Planet(new Point(600, i * 20), new Point(15 - i, 20 - i), new Size(50, 50));
             for (int i = gameObjects.Length/2; i < gameObjects.Length; i++)            
                 gameObjects[i] = new SmallStar(new Point(600, i * 20), new Point(i, 0), new Size(2, 2));            
         }
