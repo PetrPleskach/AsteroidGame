@@ -19,8 +19,8 @@ namespace AsteroidGame
 
         public static void Initialize(Form form)
         {
-            Width = form.Width;
-            Height = form.Height;
+            Width = form.ClientSize.Width;
+            Height = form.ClientSize.Height;
 
             contex = BufferedGraphicsManager.Current;
             Graphics graphics = form.CreateGraphics();
@@ -36,12 +36,12 @@ namespace AsteroidGame
             Draw();
             Update();
         }
-
+        
         public static void Draw()
         {
             Graphics graphics = buffer.Graphics;
             graphics.Clear(Color.Black);
-            foreach (BaseVisualObject gameObject in gameObjects)            
+            foreach (BaseVisualObject gameObject in gameObjects)
                 gameObject.Draw(graphics);            
 
             buffer.Render();
@@ -51,8 +51,12 @@ namespace AsteroidGame
             const int visualObjectsCount = 30;
             gameObjects = new BaseVisualObject[visualObjectsCount];
 
-            for (int i = 0; i < gameObjects.Length; i++)
-                gameObjects[i] = new BaseVisualObject(new Point(600, i * 20), new Point(15 - i, 20 - i), new Size(20, 20));           
+            for (int i = 0; i < gameObjects.Length/2; i++)
+                gameObjects[i] = new BaseVisualObject(new Point(600, i * 20), new Point(15 - i, 20 - i), new Size(20, 20));
+            for (int i = gameObjects.Length/2; i < gameObjects.Length; i++)
+            {
+                gameObjects[i] = new Star(new Point(600, i * 20), new Point(i, 0), new Size(7, 7));
+            }
         }
         public static void Update()
         {

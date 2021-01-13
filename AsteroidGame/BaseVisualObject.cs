@@ -21,18 +21,18 @@ namespace AsteroidGame
             Size = size;
         }
 
-        public void Draw(Graphics graphics)
+        public virtual void Draw(Graphics graphics)
         {
             graphics.DrawEllipse(Pens.White, Position.X, Position.Y, Size.Width, Size.Height);
         }
-        public void Update()
+        public virtual void Update()
         {
             Position.X += Direction.X;
             Position.Y += Direction.Y;
-            if (Position.X <= 0) Direction.X = -Direction.X;
-            if (Position.Y <= 0) Direction.Y = -Direction.Y;
-            if (Position.X >= Game.Width - Size.Width) Direction.X = -Direction.X;
-            if (Position.Y >= Game.Height - Size.Height) Direction.Y = -Direction.Y;
+            if (Position.X < 0) Direction.X = -Direction.X;
+            if (Position.Y < 0) Direction.Y = -Direction.Y;
+            if (Position.X > Game.Width - Size.Width) Direction.X = -Direction.X;
+            if (Position.Y > Game.Height - Size.Height) Direction.Y = -Direction.Y;
         }
     }
 }
