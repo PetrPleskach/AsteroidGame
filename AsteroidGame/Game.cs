@@ -55,7 +55,7 @@ namespace AsteroidGame
                 gameObjects[i] = new BaseVisualObject(new Point(600, i * 20), new Point(15 - i, 20 - i), new Size(20, 20));
             for (int i = gameObjects.Length/2; i < gameObjects.Length; i++)
             {
-                gameObjects[i] = new Star(new Point(600, i * 20), new Point(i, 0), new Size(7, 7));
+                gameObjects[i] = new BigStar(new Point(600, i * 20), new Point(i, 0), new Size(7, 7));
             }
         }
         public static void Update()
