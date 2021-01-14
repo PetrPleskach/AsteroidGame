@@ -9,9 +9,9 @@ namespace AsteroidGame
 {
     class Planet : BaseVisualObject
     {
-        private Random random = new Random();
+        private static Random random = new Random();
         private Bitmap image;//переменная для хранения изображения
-        private List<Bitmap> planetSkins = new List<Bitmap>()//список изображений для планет
+        private static List<Bitmap> planetSkins = new List<Bitmap>()//список изображений для планет
         {            
             new Bitmap(@"..\..\..\img/planets/planet01.png"),
             new Bitmap(@"..\..\..\img/planets/planet02.png"),

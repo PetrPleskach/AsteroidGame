@@ -23,8 +23,8 @@ namespace AsteroidGame
             gameForm.StartPosition = FormStartPosition.CenterScreen;
             gameForm.Show();
 
-            SplashScreen.Initialize(gameForm);
-            SplashScreen.Draw();
+            Game.Initialize(gameForm);
+            Game.Draw();
             Application.Run(gameForm);            
         }
     }
