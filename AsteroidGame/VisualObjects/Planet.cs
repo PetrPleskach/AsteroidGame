@@ -23,7 +23,7 @@ namespace AsteroidGame
             new Bitmap(@"..\..\..\img/planets/planet08.png"),
         };
         
-        public Planet(Point position, Point direction, Size size) : base(position, direction, size)
+        public Planet(Point position, Point direction, int size) : base(position, direction, new Size(size,size))
         {
             image = planetSkins[random.Next(0, planetSkins.Count)];//указываем случайное изображение
         }
@@ -33,7 +33,8 @@ namespace AsteroidGame
             Position.X -= Direction.X;
             if (Position.X < -200)
             {
-                Position.X = Game.Width + Size.Width;                 
+                Position.X = Game.Width + Size.Width;
+                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));//Меняем положение обьекта
                 image = planetSkins[random.Next(0, planetSkins.Count)];//Меняем скин планеты
             }                
         }

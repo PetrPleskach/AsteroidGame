@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace AsteroidGame
 {
     class SmallStar : Star
-    {
-        private Random random = new Random();        
+    {               
         private Brush brush;//переменная для заливки
 
         public SmallStar(Point position, Point direction, Size size) : base(position, direction, size)
@@ -28,6 +27,7 @@ namespace AsteroidGame
             if (Position.X < 0) 
             { 
                 Position.X = Game.Width + Size.Width;
+                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));//Меняем положение обьекта
                 //меняем цвет для кисти
                 brush = new SolidBrush(Color.FromArgb(random.Next(170, 255), random.Next(170, 255), random.Next(170, 255)));
             }

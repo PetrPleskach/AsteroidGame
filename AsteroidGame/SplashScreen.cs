@@ -74,7 +74,7 @@ namespace AsteroidGame
                 gameObjects[i] = new Planet(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(0, random.Next(0, 5)),
-                    new Size(50, 50));
+                    50);
         }
     }
 }
