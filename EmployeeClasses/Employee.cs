@@ -6,6 +6,7 @@ namespace EmployeeClasses
 {
     abstract class Employee
     {
+        protected static Random random = new Random();
         //Поля общие для всех работников
         protected string name;
         protected string surName;
@@ -24,6 +25,12 @@ namespace EmployeeClasses
         /// Абстрактный метод для расчёта зарплаты
         /// </summary>
         /// <returns></returns>
-        protected abstract decimal PaymentCalculation();
+        protected abstract decimal PaymentCalculation(decimal salary);
+        /// <summary>
+        /// Переопределенный метод для вывода данных о работнике
+        /// </summary>
+        /// <returns>Данные о работнике в виде строки</returns>
+        public override string ToString() => $"{id} | {name, -8} | {surName, -8} | возраст: {age}, зарплата: {salary:C2}";
+
     }
 }
