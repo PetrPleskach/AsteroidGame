@@ -36,6 +36,9 @@ namespace AsteroidGame
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             buffer = contex.Allocate(graphics, new Rectangle(0, 0, Width, Height));
             Load();//Выполняем загрузку обьектов
+            Timer timer = new Timer { Interval = 100 };//Добавляем таймер, задаём интервал для вызова события
+            timer.Tick += Timer_Tick;//Создаём событие для таймера
+            timer.Start();
         }
         
         public static void Draw()
@@ -55,26 +58,37 @@ namespace AsteroidGame
             for (int i = startCount = 0; i < (length = numOfSmallStars); i++)
                 gameObjects[i] = new SmallStar(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(0, random.Next(0, 10)),
+                    new Point(random.Next(1, 5), 0),
                     new Size(2, 2));
             length += numOfStars;
             for (int i = (startCount += numOfSmallStars); i < length; i++)
                 gameObjects[i] = new Star(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(0, random.Next(0, 10)),
+                    new Point(random.Next(2, 8), 0),
                     new Size(5, 5));
             length += numOfBigStars;
             for (int i = (startCount += numOfStars); i < length; i++)
                 gameObjects[i] = new BigStar(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(0, random.Next(0, 10)),
-                    new Size(7,7));
+                    new Point(random.Next(3, 10), 0),
+                    new Size(7, 7));
             length += numOfPLanets;
             for (int i = (startCount += numOfBigStars); i < length; i++)
                 gameObjects[i] = new Planet(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(0, random.Next(0, 5)),
-                    50);
+                    new Point(random.Next(5, 10), 0),
+                    90);
+        }
+        public static void Update()
+        {
+            foreach (BaseVisualObject gameObject in gameObjects)
+                gameObject.Update();
+        }
+
+        private static void Timer_Tick(object sender, EventArgs e)
+        {
+            Draw();
+            Update();
         }
     }
 }

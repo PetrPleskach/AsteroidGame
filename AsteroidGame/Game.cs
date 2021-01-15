@@ -62,8 +62,7 @@ namespace AsteroidGame
             buffer.Render();
         }
         public static void Load()
-        {
-            
+        {            
             const int visualObjectsCount = numOfSmallStars + numOfStars + numOfBigStars + numOfPLanets;
             gameObjects = new BaseVisualObject[visualObjectsCount];
             int length, startCount;//переменные для удобства перебора данных в массиве                       
