@@ -7,12 +7,13 @@ namespace EmployeeClasses
     {
         static void Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.Unicode;
-            Console.WriteLine("Hello World!");
+            Console.OutputEncoding = Encoding.Unicode;            
 
-            FixedPayEmploee emploee = new FixedPayEmploee("Иван", "Иванов", 22, 1000);            
+            FixedPayEmploee emploee = new FixedPayEmploee("Иван", "Иванов", 22, 1000);
+            HourlyPayEmployee hourlyEmploee = new HourlyPayEmployee("Петр", "Петров", 33, 11);
 
             Console.WriteLine(emploee);
+            Console.WriteLine(hourlyEmploee);
 
             Console.ReadKey();
         }
