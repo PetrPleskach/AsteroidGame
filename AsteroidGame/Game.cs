@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -14,7 +10,7 @@ namespace AsteroidGame
         static Random random = new Random(); 
         private static BufferedGraphicsContext contex;
         private static BufferedGraphics buffer;
-        private static BaseVisualObject[] gameObjects;
+        private static BaseVisualObject[] gameObjects;//Массив обьектов для отрисовки
 
         //константы для задания количества обьектов разных типов на заставке
         private const int numOfPLanets = 2;

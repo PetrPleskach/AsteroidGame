@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -45,8 +42,8 @@ namespace AsteroidGame
             credits.Text = $"Плескач Петр ©{DateTime.Now.Year}";            
             credits.Location = new Point(0, gameForm.ClientSize.Height - credits.Size.Height);
 
-            //Game.Width = 800;
-            //Game.Height = 600;
+            Game.Width = 800;
+            Game.Height = 600;
             SplashScreen.Initialize(gameForm);
             SplashScreen.Draw();
             Application.Run(gameForm);           
