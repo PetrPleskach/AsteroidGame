@@ -9,9 +9,15 @@ namespace EmployeeClasses
         public FixedPayEmploee(string name, string surName, int age, decimal salary) : base(name, surName, age)
         {
             id = ("F" + age + name[^1] + surName[0] + random.Next(100, 1000)).ToUpper();
-            this.salary = PaymentCalculation(salary);
+            PaymentCalculation(salary);
         }
 
-        protected override decimal PaymentCalculation(decimal salary) => salary;
+        public string Name { get => name; }
+        public string SurName { get => surName; }
+        public int Age { get => age; }
+        public string Id { get => id; }
+        public decimal Salary { get => salary; }
+
+        public override void PaymentCalculation(decimal salary) => this.salary = salary;
     }
 }

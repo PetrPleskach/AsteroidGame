@@ -25,7 +25,7 @@ namespace EmployeeClasses
         /// Абстрактный метод для расчёта зарплаты
         /// </summary>
         /// <returns></returns>
-        protected abstract decimal PaymentCalculation(decimal salary);
+        public abstract void PaymentCalculation(decimal salary);
         /// <summary>
         /// Переопределенный метод для вывода данных о работнике
         /// </summary>
