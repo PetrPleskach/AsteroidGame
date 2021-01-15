@@ -8,9 +8,8 @@ using System.Drawing;
 namespace AsteroidGame
 {
     class Star : BaseVisualObject
-    {
-        protected static Random random = new Random();
-        public Star(Point position, Point direction, Size size) : base(position, direction, size) { }
+    {        
+        public Star(Point position, Point direction, int size) : base(position, direction, new Size(size, size)) { }
 
         public override void Draw(Graphics graphics)
         {
@@ -22,10 +21,10 @@ namespace AsteroidGame
         {
             //обновляем положение звезды только по оси X
             Position.X -= Direction.X;
-            if (Position.X < -10)
+            if (Position.X < -Size.Width)
             {
-                Position.X = Game.Width + Size.Width;
-                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));//Меняем положение обьекта
+                Position.X = SplashScreen.Width + Size.Width;
+                Position.Y = random.Next(Size.Height, (SplashScreen.Height - Size.Height));//Меняем положение обьекта
             }
         }        
     }

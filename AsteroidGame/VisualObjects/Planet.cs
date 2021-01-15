@@ -8,8 +8,7 @@ using System.Drawing;
 namespace AsteroidGame
 {
     class Planet : BaseVisualObject
-    {
-        private static Random random = new Random();
+    {        
         private Bitmap image;//переменная для хранения изображения
         private static List<Bitmap> planetSkins = new List<Bitmap>()//список изображений для планет
         {            
@@ -23,7 +22,7 @@ namespace AsteroidGame
             new Bitmap(@"..\..\..\img/planets/planet08.png"),
         };
         
-        public Planet(Point position, Point direction, int size) : base(position, direction, new Size(size,size))
+        public Planet(Point position, Point direction, int size) : base(position, direction, new Size(size, size))
         {
             image = planetSkins[random.Next(0, planetSkins.Count)];//указываем случайное изображение
         }
@@ -31,7 +30,7 @@ namespace AsteroidGame
         public override void Update()
         {
             Position.X -= Direction.X;
-            if (Position.X < -200)
+            if (Position.X < -random.Next(Size.Width, 500))//добавляем немного рандома в поведение планеты
             {
                 Position.X = Game.Width + Size.Width;
                 Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));//Меняем положение обьекта

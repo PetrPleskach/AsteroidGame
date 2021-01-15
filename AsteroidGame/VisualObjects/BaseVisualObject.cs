@@ -12,13 +12,14 @@ namespace AsteroidGame
         protected Point Position;//положение обьекта
         protected Point Direction;//направление движения обьекта
         protected Size Size;//размер
+        protected static Random random = new Random();
 
         public BaseVisualObject() { }
         public BaseVisualObject(Point position, Point direction, Size size)//конструктор для задания базовых параметров
         {
             Position = position;
             Direction = direction;
-            Size = size;
+            Size =  size;
         }
 
         /// <summary>

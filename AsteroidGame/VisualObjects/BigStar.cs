@@ -9,7 +9,7 @@ namespace AsteroidGame
 {
     class BigStar : Star
     {
-        public BigStar(Point position, Point direction, Size size) : base(position, direction, size) { }
+        public BigStar(Point position, Point direction, int size) : base(position, direction, size) { }
 
         public override void Draw(Graphics graphics)
         {

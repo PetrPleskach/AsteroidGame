@@ -59,19 +59,19 @@ namespace AsteroidGame
                 gameObjects[i] = new SmallStar(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(1, 5), 0),
-                    new Size(2, 2));
+                    2);
             length += numOfStars;
             for (int i = (startCount += numOfSmallStars); i < length; i++)
                 gameObjects[i] = new Star(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(2, 8), 0),
-                    new Size(5, 5));
+                    5);
             length += numOfBigStars;
             for (int i = (startCount += numOfStars); i < length; i++)
                 gameObjects[i] = new BigStar(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(3, 10), 0),
-                    new Size(7, 7));
+                    7);
             length += numOfPLanets;
             for (int i = (startCount += numOfBigStars); i < length; i++)
                 gameObjects[i] = new Planet(
