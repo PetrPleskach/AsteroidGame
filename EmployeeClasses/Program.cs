@@ -23,19 +23,22 @@ namespace EmployeeClasses
         {
             Random random = new Random();
             Console.OutputEncoding = Encoding.Unicode;
-
+            
             Employee[] employes = new Employee[15];
             for (int i = 0; i < employes.Length / 2; i++)
                 employes[i] = new FixedPayEmploee(RandomStringGen(), RandomStringGen(), 20 + i, random.Next(11111, 55555));
             for (int i = employes.Length / 2; i < employes.Length; i++)
                 employes[i] = new HourlyPayEmployee(RandomStringGen(), RandomStringGen(), 20 + i, random.Next(111, 555));
 
-            foreach (var item in employes)
-            {
+            foreach (var item in employes)            
                 Console.WriteLine(item);
-            }                      
 
+            Array.Sort(employes);
+            Console.WriteLine();
 
+            foreach (var item in employes)            
+                Console.WriteLine(item);
+            
 
             Console.ReadKey();
         }
