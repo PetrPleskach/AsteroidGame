@@ -12,12 +12,6 @@ namespace EmployeeClasses
             PaymentCalculation(salary);
         }
 
-        public string Name { get => name; }
-        public string SurName { get => surName; }
-        public int Age { get => age; }
-        public string Id { get => id; }
-        public decimal Salary { get => salary; }
-
         public override void PaymentCalculation(decimal salary) => this.salary = salary;
     }
 }

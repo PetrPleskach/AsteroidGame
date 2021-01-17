@@ -14,6 +14,12 @@ namespace EmployeeClasses
         protected string id;
         protected decimal salary;
 
+        public string Name { get => name; }
+        public string SurName { get => surName; }
+        public int Age { get => age; }
+        public string Id { get => id; }
+        public decimal Salary { get => salary; }
+
         protected Employee(string name, string surName, int age)
         {
             this.name = name;
