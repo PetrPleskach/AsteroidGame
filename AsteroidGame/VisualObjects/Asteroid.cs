@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace AsteroidGame.VisualObjects
 {
-    class Asteroid : BaseVisualObject
+    class Asteroid : BaseVisualObject, ICollision
     {
         private Bitmap image;
         private static List<Bitmap> asteroidSkins = new List<Bitmap>()
@@ -23,6 +23,11 @@ namespace AsteroidGame.VisualObjects
             new Bitmap(@"..\..\..\img/asteroids/pngegg (9).png"),
             new Bitmap(@"..\..\..\img/asteroids/pngegg (10).png"),
         };
+
+        //Свойства
+        public Rectangle Rect => new Rectangle(Position, Size);
+        public int Power { get; set; } = 10;
+
         public Asteroid(Point position, Point direction, int size) : base(position, direction, new Size(size, size))
         {
             image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
@@ -52,5 +57,8 @@ namespace AsteroidGame.VisualObjects
                 image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
             }
         }
+
+        public bool CheckCollision(ICollision obj) => Rect.IntersectsWith(obj.Rect);
+
     }
 }
