@@ -35,8 +35,17 @@ namespace AsteroidGame.VisualObjects
 
         public override void Update()
         {
-            Position.X -= Direction.X;
-            if (Position.X < -random.Next(Size.Width, 500))
+            Position.X -= Direction.X;            
+            if (Position.X < -random.Next(Size.Width, 100))
+            {
+                if (Direction.Y == 0)
+                    Direction.Y = random.Next(-4, 5);
+                Position.X = Game.Width + Size.Width;
+                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));
+                image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
+            }
+            Position.Y += Direction.Y;
+            if (Position.Y < -random.Next(Size.Height, 100))
             {
                 Position.X = Game.Width + Size.Width;
                 Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));

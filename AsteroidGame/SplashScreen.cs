@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AsteroidGame.VisualObjects;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -9,13 +11,14 @@ namespace AsteroidGame
         private static Random random = new Random();
         private static BufferedGraphicsContext contex;
         private static BufferedGraphics buffer;
-        private static BaseVisualObject[] gameObjects;
+        private static List<BaseVisualObject> gameObjects;
 
         //константы для задания количества обьектов разных типов на заставке
         private const int numOfPLanets = 3;
         private const int numOfBigStars = 7;
         private const int numOfStars = 20;
         private const int numOfSmallStars = 100;
+        private const int numOfAsteroids = 15;
 
         //Ширина и высота игровой области
         public static int Width { get; set; }
@@ -48,32 +51,37 @@ namespace AsteroidGame
         }
         public static void Load()
         {
-            const int visualObjectsCount = numOfSmallStars + numOfStars + numOfBigStars + numOfPLanets;
-            gameObjects = new BaseVisualObject[visualObjectsCount];
-            int length, startCount;//переменные для удобства перебора данных в массиве                       
-            for (int i = startCount = 0; i < (length = numOfSmallStars); i++)
-                gameObjects[i] = new SmallStar(
+            gameObjects = new List<BaseVisualObject>();                                   
+            for (int i = 0; i < numOfSmallStars; i++)
+                gameObjects.Add(new SmallStar(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(1, 3), 0),
-                    2);
-            length += numOfStars;
-            for (int i = (startCount += numOfSmallStars); i < length; i++)
-                gameObjects[i] = new Star(
+                    2));
+            
+            for (int i = 0; i < numOfStars; i++)
+                gameObjects.Add(new Star(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(2, 4), 0),
-                    5);
-            length += numOfBigStars;
-            for (int i = (startCount += numOfStars); i < length; i++)
-                gameObjects[i] = new BigStar(
+                    5));
+            
+            for (int i = 0; i < numOfBigStars; i++)
+                gameObjects.Add(new BigStar(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(3, 5), 0),
-                    7);
-            length += numOfPLanets;
-            for (int i = (startCount += numOfBigStars); i < length; i++)
-                gameObjects[i] = new Planet(
+                    7));
+            
+            for (int i = 0; i < numOfPLanets; i++)
+                gameObjects.Add(new Planet(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(4, 6), 0),
-                    90);
+                    90));
+
+            for (int i = 0; i < numOfAsteroids; i++)
+                gameObjects.Add(new Asteroid(
+                    new Point(random.Next(0, Width), random.Next(0, Height)),
+                    new Point(random.Next(5, 7), random.Next(-4, 5)),
+                    40));
+
         }
         public static void Update()
         {
