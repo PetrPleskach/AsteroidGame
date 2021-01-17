@@ -51,6 +51,7 @@ namespace AsteroidGame
         }
         public static void Load()
         {
+            
             gameObjects = new List<BaseVisualObject>();                                   
             for (int i = 0; i < numOfSmallStars; i++)
                 gameObjects.Add(new SmallStar(
