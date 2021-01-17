@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AsteroidGame.VisualObjects
 {
-    class Bullet : BaseVisualObject
+    class Bullet : CollisionObject, ICollision
     {
         private const int bulletSizeX = 20;
         private const int bulletSizeY = 5;
@@ -17,7 +17,9 @@ namespace AsteroidGame.VisualObjects
 
         public override void Draw(Graphics graphics)
         {
-            throw new NotImplementedException();
+            Rectangle rect = Rect;
+            graphics.FillEllipse(Brushes.Red, rect);
+            graphics.DrawEllipse(Pens.White, rect);
         }
 
         public override void Update() => Position.X += bulletSpeed;
