@@ -19,6 +19,7 @@ namespace AsteroidGame
             gameForm.Width = 800;
             gameForm.Height = 600;
             gameForm.StartPosition = FormStartPosition.CenterScreen;
+            gameForm.Text = "Asteroids";
             gameForm.Show();
             
             Button startButton = new Button();
