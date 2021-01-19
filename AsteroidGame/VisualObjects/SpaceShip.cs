@@ -10,12 +10,23 @@ namespace AsteroidGame.VisualObjects
     class SpaceShip : BaseVisualObject, ICollision
     {
         public event EventHandler ShipDestoyed;
-        public int Energy { get; set; } = 100;
+        private Image image = Image.FromFile(@"..\..\..\img/spaceship/spaceship.png");
+        private int energy = 100;
+        public int Energy
+        {
+            get => energy;
+            set
+            {
+                energy += value;
+                if (energy > 100)
+                    energy = 100;
+            }
+        }
         public Rectangle Rect => new Rectangle(Position, Size);
 
-        public SpaceShip(Point position, Point direction, Size size) :base(position, direction, size) { }
+        public SpaceShip(Point position, Point direction, Size size) : base(position, direction, size) { }
 
-        public override void Draw(Graphics graphics) => graphics.FillEllipse(Brushes.Wheat, Position.X, Position.Y, Size.Width, Size.Height);
+        public override void Draw(Graphics graphics) { graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height); graphics.DrawEllipse(Pens.White, Position.X, Position.Y, Size.Width, Size.Height); }
 
         public override void Update() { }
 
@@ -41,8 +52,8 @@ namespace AsteroidGame.VisualObjects
 
         public void ChangeEnergy(int valueToChange)
         {
-            Energy += valueToChange;
-            if (Energy <= 0)
+            energy += valueToChange;
+            if (energy <= 0)
                 ShipDestoyed?.Invoke(this, EventArgs.Empty);
         }
 

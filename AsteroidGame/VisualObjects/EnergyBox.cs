@@ -10,6 +10,7 @@ namespace AsteroidGame.VisualObjects
     class EnergyBox : CollisionObject, ICollision
     {
         //Основные поля
+        private static Image image = Image.FromFile(@"..\..\..\img/energybox/energybox.png");
         private const int energyBoxSizeX = 30;
         private const int energyBoxSizeY = 30;
         private int energyBoxSpeed = 5;
@@ -24,8 +25,7 @@ namespace AsteroidGame.VisualObjects
         public override void Draw(Graphics graphics)
         {
             Rectangle rect = Rect;
-            graphics.FillEllipse(Brushes.Red, rect);
-            graphics.DrawEllipse(Pens.White, rect);
+            graphics.DrawImage(image, rect);
         }
 
         public override void Update()

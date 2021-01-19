@@ -135,7 +135,7 @@ namespace AsteroidGame
 
             gameObjects = gameObjectsList.ToArray();
             energyBox = new EnergyBox(200);
-            spaceShip = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(20, 10));
+            spaceShip = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(40, 20));
             spaceShip.ShipDestoyed += OnShipDestoyed;
         }
 
