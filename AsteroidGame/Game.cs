@@ -27,13 +27,16 @@ namespace AsteroidGame
             {
                 if (value > 1000 || value < 0)
                     throw new ArgumentOutOfRangeException("Ширина окна не может быть больше 1000px или 0px");
-                width = value;
+                else
+                    width = value;
             } }
         public static int Height { get => heigth;
             set 
             {
                 if (value > 1000 || value < 0)
                     throw new ArgumentOutOfRangeException("Высота окна не может быть больше 1000px или 0px");
+                else
+                    heigth = value;
             } }
 
         public static void Initialize(Form form)
