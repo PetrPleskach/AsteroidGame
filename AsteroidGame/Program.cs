@@ -6,6 +6,7 @@ namespace AsteroidGame
 {
     static class Program
     {
+        
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -15,12 +16,12 @@ namespace AsteroidGame
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Form menuForm = new Form();
-            menuForm.Width = 800;
-            menuForm.Height = 600;
-            menuForm.StartPosition = FormStartPosition.CenterScreen;
-            menuForm.Text = "Asteroids";
-            menuForm.Show();
+            Form gameForm = new Form();
+            gameForm.Width = 800;
+            gameForm.Height = 600;
+            gameForm.StartPosition = FormStartPosition.CenterScreen;
+            gameForm.Text = "Asteroids";
+            gameForm.Show();
             /*
             Button startButton = new Button();
             startButton.Parent = menuForm;
@@ -44,20 +45,15 @@ namespace AsteroidGame
             credits.Text = $"Плескач Петр ©{DateTime.Now.Year}";            
             credits.Location = new Point(0, menuForm.ClientSize.Height - credits.Size.Height);
             */
-            Game.Width = 800;
-            Game.Height = 600;
-            Game.Initialize(menuForm);
-            Game.Draw();
-            Application.Run(menuForm);          
-        }
 
-        private static void StartButton_Click(object sender, EventArgs e)
-        {
-            Form gameForm = new Form();
-            gameForm.Width = 800;
-            gameForm.Height = 600;
             Game.Initialize(gameForm);
             Game.Draw();
+            Application.Run(gameForm);
         }
+        static void StartButton_Click(object sender, EventArgs e)
+        {
+                        
+        }
+
     }
 }
