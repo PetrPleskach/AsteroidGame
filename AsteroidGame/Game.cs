@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using AsteroidGame.VisualObjects;
@@ -7,19 +8,26 @@ namespace AsteroidGame
 {
 
     static class Game
-    {        
-        static Random random = new Random(); 
+    {
+        //Основные поля
+        private static Timer timer;//Добавляем таймер
+        private static Random random = new Random(); 
         private static BufferedGraphicsContext contex;
         private static BufferedGraphics buffer;
         private static BaseVisualObject[] gameObjects;//Массив обьектов для отрисовки
         private static int width;//ширина игровой области
         private static int heigth;//высота игровой области
 
-        //константы для задания количества обьектов разных типов на заставке
+        //Константы для задания количества обьектов разных типов на заставке
         private const int numOfPLanets = 2;
         private const int numOfBigStars = 7;
         private const int numOfStars = 20;
         private const int numOfSmallStars = 100;
+        private const int numOfAsteroids = 20;
+
+        //Игровые обьекты
+        private static Bullet bullet;
+        private static SpaceShip spaceShip;
 
         //Свойства ширины и высоты игровой области
         public static int Width { get => width;
@@ -50,10 +58,32 @@ namespace AsteroidGame
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             buffer = contex.Allocate(graphics, new Rectangle(0,0, Width, Height));
             Load();//Выполняем загрузку обьектов
-            Timer timer = new Timer { Interval = 100 };//Добавляем таймер, задаём интервал для вызова события
+            timer = new Timer { Interval = 100 };//задаём интервал для вызова события
             timer.Tick += Timer_Tick;//Создаём событие для таймера
             timer.Start();
+            form.KeyDown += form_KeyDown; 
         }
+
+        public static void form_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Space:
+                    bullet = new Bullet(spaceShip.Rect.Y);
+                    break;
+                case Keys.Up:
+                case Keys.W:
+                    spaceShip.MoveUp();
+                    break;
+                case Keys.Down:
+                case Keys.S:
+                    spaceShip.MoveDown();
+                    break;
+                default:
+                    break;
+            }
+        }
+
         /// <summary>
         /// перерисовывает и обновляет положение обьектов при каждом тике таймера
         /// </summary>
@@ -63,50 +93,87 @@ namespace AsteroidGame
         {
             Draw();
             Update();
+        }        
+
+        public static void Load()
+        {
+            int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars + numOfAsteroids;
+            gameObjects = new BaseVisualObject[length];
+            List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>();
+            for (int i = 0; i < numOfSmallStars; i++)
+                gameObjectsList.Add(new SmallStar(
+                    new Point(random.Next(0, Width), random.Next(0, Height)),
+                    new Point(random.Next(1, 3), 0),
+                    2));
+
+            for (int i = 0; i < numOfStars; i++)
+                gameObjectsList.Add(new Star(
+                    new Point(random.Next(0, Width), random.Next(0, Height)),
+                    new Point(random.Next(2, 4), 0),
+                    5));
+
+            for (int i = 0; i < numOfBigStars; i++)
+                gameObjectsList.Add(new BigStar(
+                    new Point(random.Next(0, Width), random.Next(0, Height)),
+                    new Point(random.Next(3, 5), 0),
+                    7));
+
+            for (int i = 0; i < numOfPLanets; i++)
+                gameObjectsList.Add(new Planet(
+                    new Point(random.Next(0, Width), random.Next(0, Height)),
+                    new Point(random.Next(4, 6), 0),
+                    90));
+
+            for (int i = 0; i < numOfAsteroids; i++)
+                gameObjectsList.Add(new Asteroid(
+                    new Point(random.Next(0, Width), random.Next(0, Height)),
+                    new Point(random.Next(5, 7), random.Next(-4, 5)),
+                    40));
+            gameObjects = gameObjectsList.ToArray();
+            spaceShip = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(20, 10));
+            spaceShip.ShipDestoyed += OnShipDestoyed;
         }
-        
+
+        private static void OnShipDestoyed(object sender, EventArgs e)
+        {
+            timer.Stop();
+            SplashScreen.Initialize(new Form());
+            SplashScreen.Draw();            
+        }
+
         public static void Draw()
         {
             Graphics graphics = buffer.Graphics;
             graphics.Clear(Color.Black);
             foreach (BaseVisualObject gameObject in gameObjects)
-                gameObject.Draw(graphics);
-
+                gameObject?.Draw(graphics);
+            spaceShip.Draw(graphics);
+            bullet?.Draw(graphics);
             buffer.Render();
         }
-        public static void Load()
-        {            
-            const int visualObjectsCount = numOfSmallStars + numOfStars + numOfBigStars + numOfPLanets;
-            gameObjects = new BaseVisualObject[visualObjectsCount];
-            int length, startCount;//переменные для удобства перебора данных в массиве                       
-            for (int i = startCount = 0; i < (length = numOfSmallStars); i++)
-                gameObjects[i] = new SmallStar(
-                    new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(1, 5), 0),
-                    2);
-            length += numOfStars;
-            for (int i = (startCount += numOfSmallStars); i < length; i++)
-                gameObjects[i] = new Star(
-                    new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(2,8), 0),
-                    5);
-            length += numOfBigStars;
-            for (int i = (startCount += numOfStars); i < length; i++)
-                gameObjects[i] = new BigStar(
-                    new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(3,10), 0),
-                    7);
-            length += numOfPLanets;
-            for (int i = (startCount += numOfBigStars); i < length; i++)
-                gameObjects[i] = new Planet(
-                    new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(5,10), 0),
-                    90); 
-        }
+
         public static void Update()
         {
             foreach (BaseVisualObject gameObject in gameObjects)            
-                gameObject.Update();     
+                gameObject?.Update();
+            bullet?.Update();
+
+            for (int i = 0; i < gameObjects.Length; i++)
+            {
+                var obj = gameObjects[i];
+                if (obj is ICollision collisionObj)
+                {
+                    if (bullet?.CheckCollision(collisionObj) == true)
+                    {
+                        bullet = null;
+                        gameObjects[i] = null;
+                        System.Media.SystemSounds.Asterisk.Play();
+                    }
+                    else
+                        if (spaceShip.CheckCollision(collisionObj))
+                        gameObjects[i] = null;
+                }
+            }
         }
     }
 }

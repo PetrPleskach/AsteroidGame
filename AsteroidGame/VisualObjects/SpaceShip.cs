@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace AsteroidGame.VisualObjects
 {
-    class Ship : BaseVisualObject, ICollision
+    class SpaceShip : BaseVisualObject, ICollision
     {
         public event EventHandler ShipDestoyed;
         public int Energy { get; set; } = 100;
         public Rectangle Rect => new Rectangle(Position, Size);
 
-        public Ship(Point position, Point direction, Size size) :base(position, direction, size) { }
+        public SpaceShip(Point position, Point direction, Size size) :base(position, direction, size) { }
 
         public override void Draw(Graphics graphics) => graphics.FillEllipse(Brushes.Wheat, Position.X, Position.Y, Size.Width, Size.Height);
 
@@ -26,7 +26,7 @@ namespace AsteroidGame.VisualObjects
 
         public void MoveDown()
         {
-            if (Position.Y > Game.Height) Position.Y += Direction.Y;
+            if (Position.Y < Game.Height) Position.Y += Direction.Y;
         }
 
         public bool CheckCollision(ICollision obj)
