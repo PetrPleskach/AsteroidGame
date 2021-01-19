@@ -29,6 +29,7 @@ namespace AsteroidGame
         //Игровые обьекты
         private static Bullet bullet;
         private static SpaceShip spaceShip;
+        private static EnergyBox energyBox;
 
         //Свойства
         public static int Width { get => width;
@@ -131,7 +132,9 @@ namespace AsteroidGame
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(5, 7), random.Next(-4, 5)),
                     40));
+
             gameObjects = gameObjectsList.ToArray();
+            energyBox = new EnergyBox(200);
             spaceShip = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(20, 10));
             spaceShip.ShipDestoyed += OnShipDestoyed;
         }
@@ -151,16 +154,20 @@ namespace AsteroidGame
                 gameObject?.Draw(graphics);
             spaceShip.Draw(graphics);
             bullet?.Draw(graphics);
+            energyBox?.Draw(graphics);
             graphics.DrawString("Shields: " + spaceShip.Energy, SystemFonts.DefaultFont, Brushes.Cyan, 0, 0);
             graphics.DrawString("Score: " + Score, SystemFonts.DefaultFont, Brushes.Cyan, 0, 10);
             buffer.Render();
         }
 
         public static void Update()
-        {
+        {           
             foreach (BaseVisualObject gameObject in gameObjects)            
                 gameObject?.Update();
             bullet?.Update();
+            energyBox?.Update();
+            if (energyBox != null && spaceShip.CheckCollision(energyBox))
+                energyBox = null;
 
             for (int i = 0; i < gameObjects.Length; i++)
             {
