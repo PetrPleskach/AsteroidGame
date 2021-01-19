@@ -17,6 +17,7 @@ namespace AsteroidGame
         private static BaseVisualObject[] gameObjects;//Массив обьектов для отрисовки
         private static int width;//ширина игровой области
         private static int heigth;//высота игровой области
+        private static int score = 0;//заработанные очки
 
         //Константы для задания количества обьектов разных типов на заставке
         private const int numOfPLanets = 2;
@@ -29,7 +30,7 @@ namespace AsteroidGame
         private static Bullet bullet;
         private static SpaceShip spaceShip;
 
-        //Свойства ширины и высоты игровой области
+        //Свойства
         public static int Width { get => width;
             set 
             {
@@ -46,6 +47,7 @@ namespace AsteroidGame
                 else
                     heigth = value;
             } }
+        public static int Score => score;
 
         public static void Initialize(Form form)
         {
@@ -149,6 +151,8 @@ namespace AsteroidGame
                 gameObject?.Draw(graphics);
             spaceShip.Draw(graphics);
             bullet?.Draw(graphics);
+            graphics.DrawString("Shields: " + spaceShip.Energy, SystemFonts.DefaultFont, Brushes.Cyan, 0, 0);
+            graphics.DrawString("Score: " + Score, SystemFonts.DefaultFont, Brushes.Cyan, 0, 10);
             buffer.Render();
         }
 
@@ -168,6 +172,7 @@ namespace AsteroidGame
                         bullet = null;
                         gameObjects[i] = null;
                         System.Media.SystemSounds.Asterisk.Play();
+                        score++;
                     }
                     else
                         if (spaceShip.CheckCollision(collisionObj))
