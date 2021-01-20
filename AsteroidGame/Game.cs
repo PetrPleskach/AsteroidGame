@@ -8,7 +8,7 @@ namespace AsteroidGame
 {
 
     static class Game
-    {
+    {        
         //Основные поля
         private static Timer timer;//Добавляем таймер
         private static Random random = new Random(); 
@@ -19,13 +19,17 @@ namespace AsteroidGame
         private static int heigth;//высота игровой области
         private static int score = 0;//заработанные очки
 
+        //События
+        public delegate void Message(string message);
+        public static event Message Logging;        
+
         //Константы для задания количества обьектов разных типов на заставке
         private const int numOfPLanets = 2;
         private const int numOfBigStars = 7;
         private const int numOfStars = 20;
         private const int numOfSmallStars = 100;
         private const int numOfAsteroids = 20;
-
+        
         //Игровые обьекты
         private static Bullet bullet;
         private static SpaceShip spaceShip;
@@ -35,7 +39,7 @@ namespace AsteroidGame
         public static int Width { get => width;
             set 
             {
-                if (value > 1000 || value < 0)
+                if (value > 1000 || value < 0)                    
                     throw new ArgumentOutOfRangeException("Ширина окна не может быть больше 1000px или 0px");
                 else
                     width = value;
@@ -49,6 +53,7 @@ namespace AsteroidGame
                     heigth = value;
             } }
         public static int Score => score;
+        public static bool TimerStop { set {if(value) timer.Stop(); } }
 
         public static void Initialize(Form form)
         {
@@ -67,11 +72,12 @@ namespace AsteroidGame
             form.KeyDown += form_KeyDown; 
         }
 
-        public static void form_KeyDown(object sender, KeyEventArgs e)
+        private static void form_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
                 case Keys.Space:
+                case Keys.Control:
                     bullet = new Bullet(spaceShip.Rect.Y);
                     break;
                 case Keys.Up:
@@ -98,7 +104,7 @@ namespace AsteroidGame
             Update();
         }        
 
-        public static void Load()
+        private static void Load()
         {
             int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars + numOfAsteroids;
             gameObjects = new BaseVisualObject[length];
@@ -131,19 +137,18 @@ namespace AsteroidGame
                 gameObjectsList.Add(new Asteroid(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(5, 7), random.Next(-4, 5)),
-                    40));
-
+                    40));            
             gameObjects = gameObjectsList.ToArray();
             energyBox = new EnergyBox(200);
             spaceShip = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(40, 20));
             spaceShip.ShipDestoyed += OnShipDestoyed;
+            Logging?.Invoke("Game objects loaded");
         }
 
         private static void OnShipDestoyed(object sender, EventArgs e)
         {
             timer.Stop();
-            SplashScreen.Initialize(new Form());
-            SplashScreen.Draw();            
+            Logging?.Invoke($"Game Over! Score recived: {score}");
         }
 
         public static void Draw()

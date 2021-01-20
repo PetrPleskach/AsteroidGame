@@ -1,18 +1,22 @@
 using System;
 using System.Windows.Forms;
 using System.Drawing;
+using AsteroidGame.Logging;
 
 namespace AsteroidGame
 {
     static class Program
     {
-        
+        private static TextFileLogger textLogger;
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            textLogger = new TextFileLogger(@$"logs\{DateTime.Now.ToFileTime()}.log");
+            textLogger.LogInfo("Application Load");
+            Game.Logging += Game_Logging;
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -21,6 +25,7 @@ namespace AsteroidGame
             gameForm.Height = 600;
             gameForm.StartPosition = FormStartPosition.CenterScreen;
             gameForm.Text = "Asteroids";
+            gameForm.FormClosing += gameForm_FormClosing;
             gameForm.Show();
             /*
             Button startButton = new Button();
@@ -48,8 +53,25 @@ namespace AsteroidGame
 
             Game.Initialize(gameForm);
             Game.Draw();
-            Application.Run(gameForm);
+            Application.Run(gameForm);            
         }
+
+        private static void Game_Logging(string message)
+        {
+            textLogger.LogInfo(message);
+        }
+
+        private static void gameForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Вы уверены?", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                e.Cancel = true;
+            else
+            {
+                Game.TimerStop = true;
+                textLogger.LogInfo("Application closed");
+            }
+        }
+
         static void StartButton_Click(object sender, EventArgs e)
         {
                         
