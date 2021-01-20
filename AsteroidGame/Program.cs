@@ -8,6 +8,7 @@ namespace AsteroidGame
     static class Program
     {
         private static TextFileLogger textLogger;
+        private static DebugLogger debugLogger;
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -15,7 +16,9 @@ namespace AsteroidGame
         static void Main()
         {
             textLogger = new TextFileLogger(@$"logs\{DateTime.Now.ToFileTime()}.log");
+            debugLogger = new DebugLogger();
             textLogger.LogInfo("Application Load");
+            debugLogger.LogInfo("Application Run");
             Game.Logging += Game_Logging;
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
@@ -59,6 +62,7 @@ namespace AsteroidGame
         private static void Game_Logging(string message)
         {
             textLogger.LogInfo(message);
+            debugLogger.LogInfo(message);
         }
 
         private static void gameForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -69,6 +73,7 @@ namespace AsteroidGame
             {
                 Game.TimerStop = true;
                 textLogger.LogInfo("Application closed");
+                debugLogger.LogInfo("Application closed");
             }
         }
 
