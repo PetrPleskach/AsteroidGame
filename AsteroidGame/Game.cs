@@ -136,7 +136,7 @@ namespace AsteroidGame
             for (int i = 0; i < numOfAsteroids; i++)
                 gameObjectsList.Add(new Asteroid(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(5, 7), random.Next(-4, 5)),
+                    new Point(random.Next(5, 7), random.Next(-2, 3)),
                     40));            
             gameObjects = gameObjectsList.ToArray();
             energyBox = new EnergyBox(200);
