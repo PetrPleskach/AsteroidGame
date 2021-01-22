@@ -14,11 +14,11 @@ namespace EmployeeClasses
         protected string id;
         protected decimal salary;
 
-        public string Name { get => name; }
-        public string SurName { get => surName; }
-        public int Age { get => age; }
-        public string Id { get => id; }
-        public decimal Salary { get => salary; }
+        public string Name  => name;
+        public string SurName  => surName;
+        public int Age => age;
+        public string Id => id;
+        public decimal Salary => salary;
 
         protected Employee(string name, string surName, int age)
         {

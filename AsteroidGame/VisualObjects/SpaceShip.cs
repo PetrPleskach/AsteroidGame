@@ -26,7 +26,7 @@ namespace AsteroidGame.VisualObjects
 
         public SpaceShip(Point position, Point direction, Size size) : base(position, direction, size) { }
 
-        public override void Draw(Graphics graphics) { graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height); graphics.DrawEllipse(Pens.White, Position.X, Position.Y, Size.Width, Size.Height); }
+        public override void Draw(Graphics graphics) { graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height);  }
 
         public override void Update() { }
 

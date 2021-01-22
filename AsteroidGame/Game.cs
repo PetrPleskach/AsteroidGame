@@ -67,7 +67,7 @@ namespace AsteroidGame
             buffer = contex.Allocate(graphics, new Rectangle(0,0, Width, Height));
             Load();//Выполняем загрузку обьектов
             timer = new Timer { Interval = 100 };//задаём интервал для вызова события
-            timer.Tick += Timer_Tick;//Создаём событие для таймера
+            timer.Tick += Timer_Tick;//Добавляем обработчик к событию таймера
             timer.Start();
             form.KeyDown += form_KeyDown; 
         }
@@ -140,7 +140,7 @@ namespace AsteroidGame
                     40));            
             gameObjects = gameObjectsList.ToArray();
             energyBox = new EnergyBox(200);
-            spaceShip = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(40, 20));
+            spaceShip = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(60, 30));
             spaceShip.ShipDestoyed += OnShipDestoyed;
             Logging?.Invoke("Game objects loaded");
         }
