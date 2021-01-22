@@ -17,22 +17,23 @@ namespace AsteroidGame.VisualObjects
             get => energy;
             set => energy = (energy + value > 100) ? 100 : energy + value;
         }
-        public Rectangle Rect => new Rectangle(Position, Size);
+        public Rectangle Rect => new Rectangle(position, size);
+        public Size Size => size;
 
         public SpaceShip(Point position, Point direction, Size size) : base(position, direction, size) { }
 
-        public override void Draw(Graphics graphics) { graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height);  }
+        public override void Draw(Graphics graphics) { graphics.DrawImage(image, position.X, position.Y, size.Width, size.Height);  }
 
         public override void Update() { }
 
         public void MoveUp()
         {
-            if (Position.Y > 0) Position.Y -= Direction.Y;                
+            if (position.Y > 0) position.Y -= direction.Y;                
         }
 
         public void MoveDown()
         {
-            if (Position.Y < Game.Height + Size.Height) Position.Y += Direction.Y;
+            if (position.Y < Game.Height + size.Height) position.Y += direction.Y;
         }
 
         public bool CheckCollision(ICollision obj)
@@ -47,7 +48,7 @@ namespace AsteroidGame.VisualObjects
 
         public void ChangeEnergy(int valueToChange)
         {
-            energy = Energy + valueToChange;
+            Energy = valueToChange;
             if (Energy < 0)
                 ShipDestoyed?.Invoke(this, EventArgs.Empty);
         }

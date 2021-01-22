@@ -72,16 +72,32 @@ namespace AsteroidGame
             timer = new Timer { Interval = 100 };//задаём интервал для вызова события
             timer.Tick += Timer_Tick;//Добавляем обработчик к событию таймера
             timer.Start();
-            form.KeyDown += form_KeyDown; 
+            form.KeyDown += form_KeyDown;
         }
 
         private static void form_KeyDown(object sender, KeyEventArgs e)
-        {
+        {            
             switch (e.KeyCode)
             {
                 case Keys.Space:
                 case Keys.Control:
-                    bullets.Add(new Bullet(spaceShip.Rect.Y));
+                    Bullet disableBullet = bullets.FirstOrDefault(b => !b.IsEnabled);
+                    if (Bullet.StartPositionLeft)
+                    {                        
+                        Bullet.StartPositionLeft = false;
+                        if (disableBullet != null)
+                            disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width/2, spaceShip.Rect.Y));                        
+                        else
+                            bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y)));
+                    }
+                    else
+                    {
+                        Bullet.StartPositionLeft = true;
+                        if (disableBullet != null)
+                            disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height));
+                        else
+                            bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height)));
+                    }
                     break;
                 case Keys.Up:
                 case Keys.W:
@@ -212,6 +228,8 @@ namespace AsteroidGame
                     asteroid.IsEnabled = false;                    
                 }
             }
+            foreach (Bullet bullet in bullets.Where(b => b.Rect.X > width && b.IsEnabled))
+                      bullet.IsEnabled = false;
         }        
     }
 }

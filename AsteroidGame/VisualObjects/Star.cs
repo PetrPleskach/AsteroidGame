@@ -9,17 +9,17 @@ namespace AsteroidGame.VisualObjects
         public override void Draw(Graphics graphics)
         {
             //рисуем звезду
-            graphics.DrawLine(Pens.White, Position.X, Position.Y, Position.X + Size.Width, Position.Y + Size.Height);
-            graphics.DrawLine(Pens.White, Position.X + Size.Width, Position.Y, Position.X, Position.Y + Size.Height);            
+            graphics.DrawLine(Pens.White, position.X, position.Y, position.X + size.Width, position.Y + size.Height);
+            graphics.DrawLine(Pens.White, position.X + size.Width, position.Y, position.X, position.Y + size.Height);            
         }
         public override void Update()
         {
             //обновляем положение звезды только по оси X
-            Position.X -= Direction.X;
-            if (Position.X < -Size.Width)
+            position.X -= direction.X;
+            if (position.X < -size.Width)
             {
-                Position.X = Game.Width + Size.Width;
-                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));//Меняем положение обьекта
+                position.X = Game.Width + size.Width;
+                position.Y = random.Next(size.Height, (Game.Height - size.Height));//Меняем положение обьекта
             }
         }        
     }

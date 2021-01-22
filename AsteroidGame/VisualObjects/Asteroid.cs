@@ -23,7 +23,7 @@ namespace AsteroidGame.VisualObjects
         };
 
         //Свойства
-        public Rectangle Rect => new Rectangle(Position, Size);
+        public Rectangle Rect => new Rectangle(position, size);
         public int Power { get; set; } = 10;
 
         public Asteroid(Point position, Point direction, int size) : base(position, direction, new Size(size, size))
@@ -31,24 +31,24 @@ namespace AsteroidGame.VisualObjects
             image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
         }
 
-        public override void Draw(Graphics graphics) => graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height); 
+        public override void Draw(Graphics graphics) => graphics.DrawImage(image, position.X, position.Y, size.Width, size.Height); 
 
         public override void Update()
         {            
-            Position.X -= Direction.X;            
-            if (Position.X < -random.Next(Size.Width, 100))
+            position.X -= direction.X;            
+            if (position.X < -random.Next(size.Width, 100))
             {
-                if (Direction.Y == 0)
-                    Direction.Y = random.Next(-4, 5);
-                Position.X = Game.Width + Size.Width;
-                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));
+                if (direction.Y == 0)
+                    direction.Y = random.Next(-4, 5);
+                position.X = Game.Width + size.Width;
+                position.Y = random.Next(size.Height, (Game.Height - size.Height));
                 image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
             }
-            Position.Y += Direction.Y;
-            if (Position.Y < -random.Next(Size.Height, 100))
+            position.Y += direction.Y;
+            if (position.Y < -random.Next(size.Height, 100))
             {
-                Position.X = Game.Width + Size.Width;
-                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));
+                position.X = Game.Width + size.Width;
+                position.Y = random.Next(size.Height, (Game.Height - size.Height));
                 image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
             }
         }

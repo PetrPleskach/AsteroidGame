@@ -25,17 +25,17 @@ namespace AsteroidGame.VisualObjects
 
         public override void Update()
         {
-            Position.X -= Direction.X;
-            if (Position.X < -random.Next(Size.Width, 500))//добавляем немного рандома в поведение планеты
+            position.X -= direction.X;
+            if (position.X < -random.Next(size.Width, 500))//добавляем немного рандома в поведение планеты
             {
-                Position.X = Game.Width + Size.Width;
-                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));//Меняем положение обьекта
+                position.X = Game.Width + size.Width;
+                position.Y = random.Next(size.Height, (Game.Height - size.Height));//Меняем положение обьекта
                 image = planetSkins[random.Next(0, planetSkins.Count)];//Меняем скин планеты
             }                
         }
         public override void Draw(Graphics graphics)
         {            
-            graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height);
+            graphics.DrawImage(image, position.X, position.Y, size.Width, size.Height);
         }
     }    
 }

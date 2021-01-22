@@ -13,7 +13,9 @@ namespace AsteroidGame.VisualObjects
         private const int bulletSizeY = 2;
         private const int bulletSpeed = 10;
 
-        public Bullet(int position) : base(new Point(0, position), Point.Empty, new Size(bulletSizeX, bulletSizeY)) { }
+        public static bool StartPositionLeft { get; set; } = true;
+
+        public Bullet(Point position) : base(position, Point.Empty, new Size(bulletSizeX, bulletSizeY)) { }
 
         public override void Draw(Graphics graphics)
         {            
@@ -22,6 +24,12 @@ namespace AsteroidGame.VisualObjects
             graphics.DrawEllipse(Pens.White, rect);
         }
 
-        public override void Update() => Position.X += bulletSpeed;
+        public override void Update() => position.X += bulletSpeed;
+
+        public void ResetPosition(Point x)
+        {
+            position = x;
+            IsEnabled = true;
+        }
     }
 }

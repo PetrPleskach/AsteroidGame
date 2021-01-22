@@ -6,9 +6,9 @@ namespace AsteroidGame.VisualObjects
     abstract class BaseVisualObject
     {
         //Основные параметры обьекта
-        protected Point Position;//положение обьекта
-        protected Point Direction;//направление движения обьекта
-        protected Size Size;//размер
+        protected Point position;//положение обьекта
+        protected Point direction;//направление движения обьекта
+        protected Size size;//размер
         protected static Random random = new Random();
 
         //Свойства
@@ -16,9 +16,9 @@ namespace AsteroidGame.VisualObjects
         
         protected BaseVisualObject(Point position, Point direction, Size size)//конструктор для задания базовых параметров
         {
-            Position = position;
-            Direction = direction;
-            Size =  size;
+            this.position = position;
+            this.direction = direction;
+            this.size =  size;
         }
 
         /// <summary>

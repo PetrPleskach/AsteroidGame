@@ -10,8 +10,8 @@ namespace AsteroidGame.VisualObjects
         {
             base.Draw(graphics);
             //Рисуем дополнительные лучи
-            graphics.DrawLine(Pens.AntiqueWhite, Position.X + Size.Width / 2, Position.Y - Size.Height, Position.X + Size.Width / 2, Position.Y + Size.Height * 2);
-            graphics.DrawLine(Pens.AntiqueWhite, Position.X - Size.Width, Position.Y + Size.Height / 2, Position.X + Size.Width * 2, Position.Y + Size.Height / 2);
+            graphics.DrawLine(Pens.AntiqueWhite, position.X + size.Width / 2, position.Y - size.Height, position.X + size.Width / 2, position.Y + size.Height * 2);
+            graphics.DrawLine(Pens.AntiqueWhite, position.X - size.Width, position.Y + size.Height / 2, position.X + size.Width * 2, position.Y + size.Height / 2);
         }
 
     }
