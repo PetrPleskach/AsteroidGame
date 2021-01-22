@@ -12,14 +12,17 @@ namespace AsteroidGame
         private static BufferedGraphicsContext contex;
         private static BufferedGraphics buffer;
         private static BaseVisualObject[] gameObjects;//Массив обьектов для отрисовки
+
         private static int width;//ширина игровой области
         private static int heigth;//высота игровой области
+
 
         //константы для задания количества обьектов разных типов на заставке
         private const int numOfPLanets = 2;
         private const int numOfBigStars = 7;
         private const int numOfStars = 20;
         private const int numOfSmallStars = 100;
+
 
         //Свойства ширины и высоты игровой области
         public static int Width { get => width;
@@ -38,6 +41,7 @@ namespace AsteroidGame
                 else
                     heigth = value;
             } }
+
 
         public static void Initialize(Form form)
         {

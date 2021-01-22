@@ -1,6 +1,7 @@
 ﻿using AsteroidGame.VisualObjects;
 using System;
 using System.Collections.Generic;
+
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -19,6 +20,7 @@ namespace AsteroidGame
         private const int numOfStars = 20;
         private const int numOfSmallStars = 100;
         private const int numOfAsteroids = 15;        
+
 
         //Ширина и высота игровой области
         public static int Width { get; set; }
@@ -51,6 +53,7 @@ namespace AsteroidGame
         }
         public static void Load()
         {
+
             int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars + numOfAsteroids;
             gameObjects = new BaseVisualObject[length];
             List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>();                                   

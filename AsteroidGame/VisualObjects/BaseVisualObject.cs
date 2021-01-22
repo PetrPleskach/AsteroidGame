@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Drawing;
 
+
 namespace AsteroidGame.VisualObjects
 {
     abstract class BaseVisualObject
+
     {
         protected Point Position;//положение обьекта
         protected Point Direction;//направление движения обьекта
@@ -11,6 +13,7 @@ namespace AsteroidGame.VisualObjects
         protected static Random random = new Random();
         
         protected BaseVisualObject(Point position, Point direction, Size size)//конструктор для задания базовых параметров
+
         {
             Position = position;
             Direction = direction;
