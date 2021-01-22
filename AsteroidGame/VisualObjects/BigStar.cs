@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 
-namespace AsteroidGame
+
+namespace AsteroidGame.VisualObjects
 {
     class BigStar : Star
     {

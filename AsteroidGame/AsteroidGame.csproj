@@ -10,4 +10,10 @@
     <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 
+
+  <ItemGroup>
+    <Folder Include="img\asteroids\" />
+  </ItemGroup>
+
+
 </Project>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AsteroidGame.VisualObjects;
+using System;
+using System.Collections.Generic;
+
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -16,6 +19,8 @@ namespace AsteroidGame
         private const int numOfBigStars = 7;
         private const int numOfStars = 20;
         private const int numOfSmallStars = 100;
+        private const int numOfAsteroids = 15;        
+
 
         //Ширина и высота игровой области
         public static int Width { get; set; }
@@ -48,37 +53,45 @@ namespace AsteroidGame
         }
         public static void Load()
         {
-            const int visualObjectsCount = numOfSmallStars + numOfStars + numOfBigStars + numOfPLanets;
-            gameObjects = new BaseVisualObject[visualObjectsCount];
-            int length, startCount;//переменные для удобства перебора данных в массиве                       
-            for (int i = startCount = 0; i < (length = numOfSmallStars); i++)
-                gameObjects[i] = new SmallStar(
+
+            int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars + numOfAsteroids;
+            gameObjects = new BaseVisualObject[length];
+            List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>();                                   
+            for (int i = 0; i < numOfSmallStars; i++)
+                gameObjectsList.Add(new SmallStar(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(1, 5), 0),
-                    2);
-            length += numOfStars;
-            for (int i = (startCount += numOfSmallStars); i < length; i++)
-                gameObjects[i] = new Star(
+                    new Point(random.Next(1, 3), 0),
+                    2));
+            
+            for (int i = 0; i < numOfStars; i++)
+                gameObjectsList.Add(new Star(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(2, 8), 0),
-                    5);
-            length += numOfBigStars;
-            for (int i = (startCount += numOfStars); i < length; i++)
-                gameObjects[i] = new BigStar(
+                    new Point(random.Next(2, 4), 0),
+                    5));
+            
+            for (int i = 0; i < numOfBigStars; i++)
+                gameObjectsList.Add(new BigStar(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(3, 10), 0),
-                    7);
-            length += numOfPLanets;
-            for (int i = (startCount += numOfBigStars); i < length; i++)
-                gameObjects[i] = new Planet(
+                    new Point(random.Next(3, 5), 0),
+                    7));
+            
+            for (int i = 0; i < numOfPLanets; i++)
+                gameObjectsList.Add(new Planet(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(5, 10), 0),
-                    90);
+                    new Point(random.Next(4, 6), 0),
+                    90));
+            
+            for (int i = 0; i < numOfAsteroids; i++)
+                gameObjectsList.Add(new Asteroid(
+                    new Point(random.Next(0, Width), random.Next(0, Height)),
+                    new Point(random.Next(5, 7), random.Next(-4, 5)),
+                    40));
+            gameObjects = gameObjectsList.ToArray();
         }
         public static void Update()
         {
-            foreach (BaseVisualObject gameObject in gameObjects)
-                gameObject.Update();
+            for (int i = 0; i < gameObjects.Length; i++)
+                gameObjects[i].Update();
         }
 
         private static void Timer_Tick(object sender, EventArgs e)

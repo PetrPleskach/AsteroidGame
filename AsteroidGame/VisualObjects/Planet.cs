@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace AsteroidGame
+
+namespace AsteroidGame.VisualObjects
+
+
 {
     class Planet : BaseVisualObject
     {        
