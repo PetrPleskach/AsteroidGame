@@ -47,7 +47,7 @@ namespace AsteroidGame.VisualObjects
 
         public void ChangeEnergy(int valueToChange)
         {
-            Energy += valueToChange;
+            energy = Energy + valueToChange;
             if (Energy < 0)
                 ShipDestoyed?.Invoke(this, EventArgs.Empty);
         }

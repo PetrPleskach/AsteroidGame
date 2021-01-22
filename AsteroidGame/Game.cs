@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using AsteroidGame.VisualObjects;
 
@@ -14,7 +15,6 @@ namespace AsteroidGame
         private static Random random = new Random(); 
         private static BufferedGraphicsContext contex;
         private static BufferedGraphics buffer;
-        private static BaseVisualObject[] gameObjects;//Массив обьектов для отрисовки
         private static int width;//ширина игровой области
         private static int heigth;//высота игровой области
         private static int score = 0;//заработанные очки
@@ -23,17 +23,20 @@ namespace AsteroidGame
         public delegate void Message(string message);
         public static event Message Logging;        
 
-        //Константы для задания количества обьектов разных типов на заставке
+        //Количество обьектов разных типов в игре
         private const int numOfPLanets = 2;
         private const int numOfBigStars = 7;
         private const int numOfStars = 20;
         private const int numOfSmallStars = 100;
-        private const int numOfAsteroids = 20;
+
+        private static int numOfAsteroids = 20;
         
         //Игровые обьекты
         private static List<Bullet> bullets;
         private static SpaceShip spaceShip;
         private static EnergyBox energyBox;
+        private static List<Asteroid> asteroids;//Список астероидов
+        private static BaseVisualObject[] backgroundObjects;//Массив обьектов для отрисовки
 
         //Свойства
         public static int Width { get => width;
@@ -106,9 +109,12 @@ namespace AsteroidGame
 
         private static void Load()
         {
-            int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars + numOfAsteroids;
-            gameObjects = new BaseVisualObject[length];
-            List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>();
+            int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars;
+            backgroundObjects = new BaseVisualObject[length];
+            asteroids = new List<Asteroid>(numOfAsteroids);
+            List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>(length);            
+
+            #region заполняем gameObjectsList
             for (int i = 0; i < numOfSmallStars; i++)
                 gameObjectsList.Add(new SmallStar(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
@@ -132,15 +138,16 @@ namespace AsteroidGame
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(4, 6), 0),
                     90));
+            #endregion
 
-            for (int i = 0; i < numOfAsteroids; i++)
-                gameObjectsList.Add(new Asteroid(
+            for (int i = 0; i < numOfAsteroids; i++)//Заполняем список астероидов
+                asteroids.Add(new Asteroid(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(5, 7), random.Next(-2, 3)),
-                    40));            
-            gameObjects = gameObjectsList.ToArray();
+                    40));
+            backgroundObjects = gameObjectsList.ToArray();
             bullets = new List<Bullet>(50);
-            energyBox = new EnergyBox(200);
+            energyBox = new EnergyBox(200) { IsEnabled = false };
             spaceShip = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(60, 30));
             spaceShip.ShipDestoyed += OnShipDestoyed;
             Logging?.Invoke("Game objects loaded");
@@ -156,37 +163,55 @@ namespace AsteroidGame
         {
             Graphics graphics = buffer.Graphics;
             graphics.Clear(Color.Black);
-            foreach (BaseVisualObject gameObject in gameObjects)
-                gameObject?.Draw(graphics);
-            bullets.ForEach(bullet => bullet.Draw(graphics));
-            spaceShip.Draw(graphics);            
-            energyBox?.Draw(graphics);
+
+            for (int i = 0; i < backgroundObjects.Length; i++)//Отрисовка фоновых обьектов
+                backgroundObjects[i].Draw(graphics);
+
+            for (int i = 0; i < asteroids.Count; i++)//Отрисовка астероидов
+                if (asteroids[i].IsEnabled) asteroids[i].Draw(graphics);
+
+            for (int i = 0; i < bullets.Count; i++)//Отрисовка пуль
+                if (bullets[i].IsEnabled) bullets[i].Draw(graphics);
+            
+            spaceShip.Draw(graphics);
+            if (energyBox.IsEnabled) energyBox.Draw(graphics);
             graphics.DrawString("Shields: " + spaceShip.Energy, SystemFonts.DefaultFont, Brushes.Cyan, 0, 0);
             graphics.DrawString("Score: " + Score, SystemFonts.DefaultFont, Brushes.Cyan, 0, 10);
             buffer.Render();
         }
 
         public static void Update()
-        {           
-            foreach (BaseVisualObject gameObject in gameObjects)            
-                gameObject?.Update();
-            bullets.ForEach(bullet => bullet.Update());
-            energyBox?.Update();
-            if (energyBox != null && spaceShip.CheckCollision(energyBox))
-                energyBox = null;
+        {
+            for (int i = 0; i < backgroundObjects.Length; i++)//Обновление положения фоновых обьектов
+                backgroundObjects[i].Update();
 
-            for (int i = 0; i < gameObjects.Length; i++)
+            for (int i = 0; i < asteroids.Count; i++)//Обновление положения астероидов
+                if (asteroids[i].IsEnabled) asteroids[i].Update();
+
+            for (int i = 0; i < bullets.Count; i++)//Обновление положения пуль
+                if (bullets[i].IsEnabled) bullets[i].Update();
+
+            energyBox.Update();//Обновление положения аптечки
+            if (energyBox.IsEnabled && spaceShip.CheckCollision(energyBox)) energyBox.IsEnabled = false;
+
+            foreach (Asteroid asteroid in asteroids.Where(a => a.IsEnabled))
             {
-                var obj = gameObjects[i];
-                if (obj is ICollision collisionObj)
+                foreach (Bullet bullet in bullets.Where(b => b.IsEnabled))
                 {
-                    foreach (Bullet bullet in bullets)
+                    if (bullet.CheckCollision(asteroid))
                     {
-                        if (bullet.Rect.IntersectsWith(collisionObj.Rect))
-                            gameObjects[i] = null;
-                    }                    
+                        asteroid.IsEnabled = false;
+                        bullet.IsEnabled = false;
+                        score++;
+                        if (!energyBox.IsEnabled && score % 10 == 0) energyBox.IsEnabled = true;
+                        break;
+                    }
+                }
+                if (spaceShip.CheckCollision(asteroid))
+                {
+                    asteroid.IsEnabled = false;                    
                 }
             }
-        }
+        }        
     }
 }
