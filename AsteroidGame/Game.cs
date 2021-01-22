@@ -31,7 +31,7 @@ namespace AsteroidGame
         private const int numOfAsteroids = 20;
         
         //Игровые обьекты
-        private static Bullet bullet;
+        private static List<Bullet> bullets;
         private static SpaceShip spaceShip;
         private static EnergyBox energyBox;
 
@@ -78,7 +78,7 @@ namespace AsteroidGame
             {
                 case Keys.Space:
                 case Keys.Control:
-                    bullet = new Bullet(spaceShip.Rect.Y);
+                    bullets.Add(new Bullet(spaceShip.Rect.Y));
                     break;
                 case Keys.Up:
                 case Keys.W:
@@ -139,6 +139,7 @@ namespace AsteroidGame
                     new Point(random.Next(5, 7), random.Next(-2, 3)),
                     40));            
             gameObjects = gameObjectsList.ToArray();
+            bullets = new List<Bullet>(50);
             energyBox = new EnergyBox(200);
             spaceShip = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(60, 30));
             spaceShip.ShipDestoyed += OnShipDestoyed;
@@ -157,8 +158,8 @@ namespace AsteroidGame
             graphics.Clear(Color.Black);
             foreach (BaseVisualObject gameObject in gameObjects)
                 gameObject?.Draw(graphics);
-            spaceShip.Draw(graphics);
-            bullet?.Draw(graphics);
+            bullets.ForEach(bullet => bullet.Draw(graphics));
+            spaceShip.Draw(graphics);            
             energyBox?.Draw(graphics);
             graphics.DrawString("Shields: " + spaceShip.Energy, SystemFonts.DefaultFont, Brushes.Cyan, 0, 0);
             graphics.DrawString("Score: " + Score, SystemFonts.DefaultFont, Brushes.Cyan, 0, 10);
@@ -169,7 +170,7 @@ namespace AsteroidGame
         {           
             foreach (BaseVisualObject gameObject in gameObjects)            
                 gameObject?.Update();
-            bullet?.Update();
+            bullets.ForEach(bullet => bullet.Update());
             energyBox?.Update();
             if (energyBox != null && spaceShip.CheckCollision(energyBox))
                 energyBox = null;
@@ -179,16 +180,11 @@ namespace AsteroidGame
                 var obj = gameObjects[i];
                 if (obj is ICollision collisionObj)
                 {
-                    if (bullet?.CheckCollision(collisionObj) == true)
+                    foreach (Bullet bullet in bullets)
                     {
-                        bullet = null;
-                        gameObjects[i] = null;
-                        System.Media.SystemSounds.Asterisk.Play();
-                        score++;
-                    }
-                    else
-                        if (spaceShip.CheckCollision(collisionObj))
-                        gameObjects[i] = null;
+                        if (bullet.Rect.IntersectsWith(collisionObj.Rect))
+                            gameObjects[i] = null;
+                    }                    
                 }
             }
         }

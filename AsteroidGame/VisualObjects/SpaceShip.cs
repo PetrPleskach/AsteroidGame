@@ -15,12 +15,7 @@ namespace AsteroidGame.VisualObjects
         public int Energy
         {
             get => energy;
-            set
-            {
-                energy += value;
-                if (energy > 100)
-                    energy = 100;
-            }
+            set => energy = (energy + value > 100) ? 100 : energy + value;
         }
         public Rectangle Rect => new Rectangle(Position, Size);
 
@@ -52,8 +47,8 @@ namespace AsteroidGame.VisualObjects
 
         public void ChangeEnergy(int valueToChange)
         {
-            energy += valueToChange;
-            if (energy <= 0)
+            Energy += valueToChange;
+            if (Energy < 0)
                 ShipDestoyed?.Invoke(this, EventArgs.Empty);
         }
 
