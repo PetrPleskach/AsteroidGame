@@ -32,7 +32,7 @@ namespace AsteroidGame.VisualObjects
 
         public void MoveDown()
         {
-            if (Position.Y < Game.Height) Position.Y += Direction.Y;
+            if (Position.Y < Game.Height + Size.Height) Position.Y += Direction.Y;
         }
 
         public bool CheckCollision(ICollision obj)

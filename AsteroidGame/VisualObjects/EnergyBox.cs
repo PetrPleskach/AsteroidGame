@@ -24,13 +24,13 @@ namespace AsteroidGame.VisualObjects
         }
 
         public override void Draw(Graphics graphics)
-        {
+        {            
             Rectangle rect = Rect;
             graphics.DrawImage(image, rect);
         }
 
         public override void Update()
-        {
+        {            
             Position.X += energyBoxSpeedX;
             Position.Y += energyBoxSpeedY;
             if (Position.X < 0 || Position.X+energyBoxSizeX > Game.Width)

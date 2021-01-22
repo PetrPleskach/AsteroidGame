@@ -12,10 +12,8 @@ namespace AsteroidGame.VisualObjects
             brush = new SolidBrush(Color.FromArgb(random.Next(170, 255), random.Next(170, 255), random.Next(170, 255)));
         }
 
-        public override void Draw(Graphics graphics)
-        {
-            graphics.FillEllipse(brush, Position.X, Position.Y, Size.Width, Size.Height);
-        }
+        public override void Draw(Graphics graphics) => graphics.FillEllipse(brush, Position.X, Position.Y, Size.Width, Size.Height);
+
         public override void Update()
         {
             Position.X -= Direction.X;

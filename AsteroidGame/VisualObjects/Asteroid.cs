@@ -31,13 +31,10 @@ namespace AsteroidGame.VisualObjects
             image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
         }
 
-        public override void Draw(Graphics graphics)
-        {
-            graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height);            
-        }
+        public override void Draw(Graphics graphics) => graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height); 
 
         public override void Update()
-        {
+        {            
             Position.X -= Direction.X;            
             if (Position.X < -random.Next(Size.Width, 100))
             {
