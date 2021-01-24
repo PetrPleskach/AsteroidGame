@@ -76,27 +76,31 @@ namespace AsteroidGame
         }
 
         private static void form_KeyDown(object sender, KeyEventArgs e)
-        {            
+        {
             switch (e.KeyCode)
             {
                 case Keys.Space:
-                case Keys.Control:
+                case Keys.ControlKey:                    
                     Bullet disableBullet = bullets.FirstOrDefault(b => !b.IsEnabled);
                     if (Bullet.StartPositionLeft)
-                    {                        
+                    {
+                        e.SuppressKeyPress = true;
                         Bullet.StartPositionLeft = false;
                         if (disableBullet != null)
                             disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width/2, spaceShip.Rect.Y));                        
                         else
                             bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y)));
+                        
                     }
                     else
                     {
+                        e.SuppressKeyPress = true;
                         Bullet.StartPositionLeft = true;
                         if (disableBullet != null)
                             disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height));
                         else
                             bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height)));
+                        
                     }
                     break;
                 case Keys.Up:
@@ -180,14 +184,14 @@ namespace AsteroidGame
             Graphics graphics = buffer.Graphics;
             graphics.Clear(Color.Black);
 
-            for (int i = 0; i < backgroundObjects.Length; i++)//Отрисовка фоновых обьектов
-                backgroundObjects[i].Draw(graphics);
+            foreach (var obj in backgroundObjects.Where(o => o.IsEnabled))
+                obj.Draw(graphics);
 
-            for (int i = 0; i < asteroids.Count; i++)//Отрисовка астероидов
-                if (asteroids[i].IsEnabled) asteroids[i].Draw(graphics);
+            foreach (var asteroid in asteroids.Where(a => a.IsEnabled))
+                asteroid.Draw(graphics);
 
-            for (int i = 0; i < bullets.Count; i++)//Отрисовка пуль
-                if (bullets[i].IsEnabled) bullets[i].Draw(graphics);
+            foreach (var bullet in bullets.Where(b => b.IsEnabled))
+                bullet.Draw(graphics);
             
             spaceShip.Draw(graphics);
             if (energyBox.IsEnabled) energyBox.Draw(graphics);
@@ -198,14 +202,14 @@ namespace AsteroidGame
 
         public static void Update()
         {
-            for (int i = 0; i < backgroundObjects.Length; i++)//Обновление положения фоновых обьектов
-                backgroundObjects[i].Update();
+            foreach (var obj in backgroundObjects.Where(o => o.IsEnabled))
+                obj.Update();
 
-            for (int i = 0; i < asteroids.Count; i++)//Обновление положения астероидов
-                if (asteroids[i].IsEnabled) asteroids[i].Update();
+            foreach (var asteroid in asteroids.Where(a => a.IsEnabled))
+                asteroid.Update();
 
-            for (int i = 0; i < bullets.Count; i++)//Обновление положения пуль
-                if (bullets[i].IsEnabled) bullets[i].Update();
+            foreach (var bullet in bullets.Where(b => b.IsEnabled))
+                bullet.Update();
 
             energyBox.Update();//Обновление положения аптечки
             if (energyBox.IsEnabled && spaceShip.CheckCollision(energyBox)) energyBox.IsEnabled = false;
