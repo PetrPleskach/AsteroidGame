@@ -13,7 +13,7 @@ namespace ConsoleTest
 
     class Lesson4_Solution2
     {
-        static void /*not*/Main(string[] args)
+        public static void notMain()
         {
             Random random = new Random();
             const int listCount = 20;
@@ -41,8 +41,8 @@ namespace ConsoleTest
             var dict3 = listInt.OrderBy(x => x).GroupBy(x => x).ToDictionary(x => x.Key, y => y.ToList().Count);
 
             foreach (var item in dict3)            
-                Console.WriteLine("{0} -- {1}", item.Key, item.Value);            
-
+                Console.WriteLine("{0} -- {1}", item.Key, item.Value);
+            Console.WriteLine();
             Console.ReadKey();
         }
 
