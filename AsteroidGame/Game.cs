@@ -210,7 +210,7 @@ namespace AsteroidGame
                 bullet.Update();
 
             energyBox.Update();//Обновление положения аптечки
-            if (energyBox.IsEnabled && spaceShip.CheckCollision(energyBox)) energyBox.IsEnabled = false;
+            if (energyBox.IsEnabled && spaceShip.CheckCollision(energyBox)) energyBox.IsEnabled = false;            
 
             foreach (Asteroid asteroid in asteroids.Where(a => a.IsEnabled))
             {
@@ -232,6 +232,16 @@ namespace AsteroidGame
             }
             foreach (Bullet bullet in bullets.Where(b => b.Rect.X > width && b.IsEnabled))
                       bullet.IsEnabled = false;
+
+            if (!asteroids.Any(a => a.IsEnabled))
+            {
+                asteroids.ForEach(a => a.IsEnabled = true);
+                asteroids.Add(new Asteroid(
+                              new Point(random.Next(0, Width), random.Next(0, Height)),
+                              new Point(random.Next(5, 7), random.Next(-2, 3)),
+                              40));
+            }
+
         }        
     }
 }
