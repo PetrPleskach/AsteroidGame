@@ -6,7 +6,7 @@ namespace ConsoleTest
 {
     class Program
     {
-        static void Main(string[] args)
+        static void notMain(string[] args)
         {
             Dictionary<string, int> dict = new Dictionary<string, int>()
             {
@@ -38,6 +38,7 @@ namespace ConsoleTest
             Console.WriteLine();
 
             //Развернуть обращение к OrderBy с использованием делегата Predicate<T>.
+            /*
             Dictionary<string, int> dict2 = new Dictionary<string, int>()
             { 
                 {"four",4 },
@@ -45,11 +46,12 @@ namespace ConsoleTest
                 { "one",1 },
                 {"three",3 },
             };
-            var d2 = dict.OrderBy(p => p.Key);
+            var d2 = dict.OrderBy(p => p.Value);          
             foreach (var pair in d2)
             {
                 Console.WriteLine("{0} - {1}", pair.Key, pair.Value);
             }
+            */
             Console.ReadKey();
         }
     }

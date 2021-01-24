@@ -90,7 +90,6 @@ namespace AsteroidGame
                             disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width/2, spaceShip.Rect.Y));                        
                         else
                             bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y)));
-                        
                     }
                     else
                     {
@@ -99,8 +98,7 @@ namespace AsteroidGame
                         if (disableBullet != null)
                             disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height));
                         else
-                            bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height)));
-                        
+                            bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height))); 
                     }
                     break;
                 case Keys.Up:
