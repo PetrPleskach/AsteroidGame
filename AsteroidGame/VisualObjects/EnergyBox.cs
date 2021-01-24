@@ -38,5 +38,11 @@ namespace AsteroidGame.VisualObjects
             if (position.Y < 0 || position.Y+energyBoxSizeY > Game.Height)
                 energyBoxSpeedY *= -1;
         }
+
+        public void Drop(Asteroid asteroid)
+        {
+            position =  new Point(asteroid.Rect.X , asteroid.Rect.Y);
+            IsEnabled = true;
+        }
     }
 }

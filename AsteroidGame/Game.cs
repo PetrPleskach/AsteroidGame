@@ -223,7 +223,7 @@ namespace AsteroidGame
                         asteroid.IsEnabled = false;
                         bullet.IsEnabled = false;
                         score++;
-                        if (!energyBox.IsEnabled && score % 10 == 0) energyBox.IsEnabled = true;
+                        if (!energyBox.IsEnabled && score % 10 == 0) energyBox.Drop(asteroid);
                         break;
                     }
                 }
