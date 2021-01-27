@@ -21,42 +21,56 @@ namespace AsteroidGame.VisualObjects
             new Bitmap(@"..\..\..\img/asteroids/pngegg (9).png"),
             new Bitmap(@"..\..\..\img/asteroids/pngegg (10).png"),
         };
+        private int durability;
 
         //Свойства
-        public Rectangle Rect => new Rectangle(Position, Size);
-        public int Power { get; set; } = 10;
+        public Rectangle Rect => new Rectangle(position, size);
+        public static int Power { get; set; } = 1;
+
+        public int Durability { set => durability = value; get => durability; }
+
+        public Asteroid() : base       
+            (new Point(Game.Width, random.Next(0, Game.Height)), new Point(random.Next(5, 7), random.Next(-2, 3)), new Size(40, 40))
+        {
+            image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
+        }
+        
 
         public Asteroid(Point position, Point direction, int size) : base(position, direction, new Size(size, size))
         {
             image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
         }
 
-        public override void Draw(Graphics graphics)
-        {
-            graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height);            
-        }
+        public override void Draw(Graphics graphics) => graphics.DrawImage(image, position.X, position.Y, size.Width, size.Height); 
 
         public override void Update()
-        {
-            Position.X -= Direction.X;            
-            if (Position.X < -random.Next(Size.Width, 100))
+        {            
+            position.X -= direction.X;            
+            if (position.X < -random.Next(size.Width, 100))
             {
-                if (Direction.Y == 0)
-                    Direction.Y = random.Next(-4, 5);
-                Position.X = Game.Width + Size.Width;
-                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));
+                if (direction.Y == 0)
+                    direction.Y = random.Next(-4, 5);
+                position.X = Game.Width + size.Width;
+                position.Y = random.Next(size.Height, (Game.Height - size.Height));
                 image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
             }
-            Position.Y += Direction.Y;
-            if (Position.Y < -random.Next(Size.Height, 100))
+            position.Y += direction.Y;
+            if (position.Y < -random.Next(size.Height, 100))
             {
-                Position.X = Game.Width + Size.Width;
-                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));
+                position.X = Game.Width + size.Width;
+                position.Y = random.Next(size.Height, (Game.Height - size.Height));
                 image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
             }
         }
 
         public bool CheckCollision(ICollision obj) => Rect.IntersectsWith(obj.Rect);
+
+        public void ResetPosition()
+        {
+            position = new Point(Game.Width, random.Next(0, Game.Height));
+            IsEnabled = true;
+            durability = Power;
+        }
 
     }
 }

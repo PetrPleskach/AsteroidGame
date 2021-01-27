@@ -24,19 +24,25 @@ namespace AsteroidGame.VisualObjects
         }
 
         public override void Draw(Graphics graphics)
-        {
+        {            
             Rectangle rect = Rect;
             graphics.DrawImage(image, rect);
         }
 
         public override void Update()
-        {
-            Position.X += energyBoxSpeedX;
-            Position.Y += energyBoxSpeedY;
-            if (Position.X < 0 || Position.X+energyBoxSizeX > Game.Width)
+        {            
+            position.X += energyBoxSpeedX;
+            position.Y += energyBoxSpeedY;
+            if (position.X < 0 || position.X+energyBoxSizeX > Game.Width)
                 energyBoxSpeedX *= -1;
-            if (Position.Y < 0 || Position.Y+energyBoxSizeY > Game.Height)
+            if (position.Y < 0 || position.Y+energyBoxSizeY > Game.Height)
                 energyBoxSpeedY *= -1;
+        }
+
+        public void Drop(Asteroid asteroid)
+        {
+            position =  new Point(asteroid.Rect.X , asteroid.Rect.Y);
+            IsEnabled = true;
         }
     }
 }

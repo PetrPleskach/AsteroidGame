@@ -12,17 +12,15 @@ namespace AsteroidGame.VisualObjects
             brush = new SolidBrush(Color.FromArgb(random.Next(170, 255), random.Next(170, 255), random.Next(170, 255)));
         }
 
-        public override void Draw(Graphics graphics)
-        {
-            graphics.FillEllipse(brush, Position.X, Position.Y, Size.Width, Size.Height);
-        }
+        public override void Draw(Graphics graphics) => graphics.FillEllipse(brush, position.X, position.Y, size.Width, size.Height);
+
         public override void Update()
         {
-            Position.X -= Direction.X;
-            if (Position.X < -Size.Width)
+            position.X -= direction.X;
+            if (position.X < -size.Width)
             { 
-                Position.X = Game.Width + Size.Width;
-                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));//Меняем положение обьекта
+                position.X = Game.Width + size.Width;
+                position.Y = random.Next(size.Height, (Game.Height - size.Height));//Меняем положение обьекта
                 //меняем цвет кисти
                 brush = new SolidBrush(Color.FromArgb(random.Next(170, 255), random.Next(170, 255), random.Next(170, 255)));
             }

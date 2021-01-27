@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using AsteroidGame.VisualObjects;
 
@@ -14,7 +15,6 @@ namespace AsteroidGame
         private static Random random = new Random(); 
         private static BufferedGraphicsContext contex;
         private static BufferedGraphics buffer;
-        private static BaseVisualObject[] gameObjects;//Массив обьектов для отрисовки
         private static int width;//ширина игровой области
         private static int heigth;//высота игровой области
         private static int score = 0;//заработанные очки
@@ -23,17 +23,20 @@ namespace AsteroidGame
         public delegate void Message(string message);
         public static event Message Logging;        
 
-        //Константы для задания количества обьектов разных типов на заставке
+        //Количество обьектов разных типов в игре
         private const int numOfPLanets = 2;
         private const int numOfBigStars = 7;
         private const int numOfStars = 20;
         private const int numOfSmallStars = 100;
-        private const int numOfAsteroids = 20;
+
+        private static int numOfAsteroids = 5;
         
         //Игровые обьекты
-        private static Bullet bullet;
+        private static List<Bullet> bullets;
         private static SpaceShip spaceShip;
         private static EnergyBox energyBox;
+        private static List<Asteroid> asteroids;//Список астероидов
+        private static BaseVisualObject[] backgroundObjects;//Массив обьектов для отрисовки
 
         //Свойства
         public static int Width { get => width;
@@ -69,7 +72,7 @@ namespace AsteroidGame
             timer = new Timer { Interval = 100 };//задаём интервал для вызова события
             timer.Tick += Timer_Tick;//Добавляем обработчик к событию таймера
             timer.Start();
-            form.KeyDown += form_KeyDown; 
+            form.KeyDown += form_KeyDown;
         }
 
         private static void form_KeyDown(object sender, KeyEventArgs e)
@@ -77,8 +80,26 @@ namespace AsteroidGame
             switch (e.KeyCode)
             {
                 case Keys.Space:
-                case Keys.Control:
-                    bullet = new Bullet(spaceShip.Rect.Y);
+                case Keys.ControlKey:                    
+                    Bullet disableBullet = bullets.FirstOrDefault(b => !b.IsEnabled);
+                    if (Bullet.StartPositionLeft)
+                    {
+                        e.SuppressKeyPress = true;
+                        Bullet.StartPositionLeft = false;
+                        if (disableBullet != null)
+                            disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width/2, spaceShip.Rect.Y));                        
+                        else
+                            bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y)));
+                    }
+                    else
+                    {
+                        e.SuppressKeyPress = true;
+                        Bullet.StartPositionLeft = true;
+                        if (disableBullet != null)
+                            disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height));
+                        else
+                            bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height))); 
+                    }
                     break;
                 case Keys.Up:
                 case Keys.W:
@@ -101,14 +122,19 @@ namespace AsteroidGame
         private static void Timer_Tick(object sender, EventArgs e)
         {
             Draw();
+            
             Update();
         }        
 
         private static void Load()
         {
-            int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars + numOfAsteroids;
-            gameObjects = new BaseVisualObject[length];
-            List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>();
+            int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars;
+            backgroundObjects = new BaseVisualObject[length];
+            asteroids = new List<Asteroid>(numOfAsteroids);
+            asteroids.Load(numOfAsteroids);
+            List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>(length);            
+
+            #region заполняем gameObjectsList
             for (int i = 0; i < numOfSmallStars; i++)
                 gameObjectsList.Add(new SmallStar(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
@@ -132,14 +158,11 @@ namespace AsteroidGame
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(4, 6), 0),
                     90));
-
-            for (int i = 0; i < numOfAsteroids; i++)
-                gameObjectsList.Add(new Asteroid(
-                    new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(5, 7), random.Next(-2, 3)),
-                    40));            
-            gameObjects = gameObjectsList.ToArray();
-            energyBox = new EnergyBox(200);
+            #endregion
+            
+            backgroundObjects = gameObjectsList.ToArray();
+            bullets = new List<Bullet>(50);
+            energyBox = new EnergyBox(200) { IsEnabled = false };
             spaceShip = new SpaceShip(new Point(10, 400), new Point(5, 5), new Size(60, 30));
             spaceShip.ShipDestoyed += OnShipDestoyed;
             Logging?.Invoke("Game objects loaded");
@@ -155,42 +178,69 @@ namespace AsteroidGame
         {
             Graphics graphics = buffer.Graphics;
             graphics.Clear(Color.Black);
-            foreach (BaseVisualObject gameObject in gameObjects)
-                gameObject?.Draw(graphics);
+
+            foreach (var obj in backgroundObjects.Where(o => o.IsEnabled))
+                obj.Draw(graphics);
+
+            foreach (var asteroid in asteroids.Where(a => a.IsEnabled))
+                asteroid.Draw(graphics);
+
+            foreach (var bullet in bullets.Where(b => b.IsEnabled))
+                bullet.Draw(graphics);
+            
             spaceShip.Draw(graphics);
-            bullet?.Draw(graphics);
-            energyBox?.Draw(graphics);
+            if (energyBox.IsEnabled) energyBox.Draw(graphics);
             graphics.DrawString("Shields: " + spaceShip.Energy, SystemFonts.DefaultFont, Brushes.Cyan, 0, 0);
             graphics.DrawString("Score: " + Score, SystemFonts.DefaultFont, Brushes.Cyan, 0, 10);
             buffer.Render();
         }
 
         public static void Update()
-        {           
-            foreach (BaseVisualObject gameObject in gameObjects)            
-                gameObject?.Update();
-            bullet?.Update();
-            energyBox?.Update();
-            if (energyBox != null && spaceShip.CheckCollision(energyBox))
-                energyBox = null;
+        {
+            foreach (var obj in backgroundObjects.Where(o => o.IsEnabled))
+                obj.Update();
 
-            for (int i = 0; i < gameObjects.Length; i++)
+            foreach (var asteroid in asteroids.Where(a => a.IsEnabled))
+                asteroid.Update();
+
+            foreach (var bullet in bullets.Where(b => b.IsEnabled))
+                bullet.Update();
+
+            energyBox.Update();//Обновление положения аптечки
+            if (energyBox.IsEnabled && spaceShip.CheckCollision(energyBox)) energyBox.IsEnabled = false;            
+
+            foreach (Asteroid asteroid in asteroids.Where(a => a.IsEnabled))
             {
-                var obj = gameObjects[i];
-                if (obj is ICollision collisionObj)
+                foreach (Bullet bullet in bullets.Where(b => b.IsEnabled))
                 {
-                    if (bullet?.CheckCollision(collisionObj) == true)
+                    if (bullet.CheckCollision(asteroid))
                     {
-                        bullet = null;
-                        gameObjects[i] = null;
-                        System.Media.SystemSounds.Asterisk.Play();
+                        asteroid.Durability--;
+                        if (asteroid.Durability <= 0) asteroid.IsEnabled = false;
+                        bullet.IsEnabled = false;
                         score++;
+                        if (!energyBox.IsEnabled && score % 50 == 0) energyBox.Drop(asteroid);
+                        break;
                     }
-                    else
-                        if (spaceShip.CheckCollision(collisionObj))
-                        gameObjects[i] = null;
+                }
+                if (spaceShip.CheckCollision(asteroid))
+                {
+                    asteroid.IsEnabled = false;                    
                 }
             }
-        }
+            foreach (Bullet bullet in bullets.Where(b => b.Rect.X > width && b.IsEnabled))
+                      bullet.IsEnabled = false;
+
+            if (asteroids.NumOfActiveAsteroids() < numOfAsteroids)
+            {
+                numOfAsteroids++;
+                asteroids.ActivateOrAddAsteriod(numOfAsteroids);
+                if(numOfAsteroids > 40)
+                {
+                    numOfAsteroids = 15;
+                    Asteroid.Power += 3;                    
+                }
+            }
+        }        
     }
 }

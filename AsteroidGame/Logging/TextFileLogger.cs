@@ -10,15 +10,20 @@ namespace AsteroidGame.Logging
     class TextFileLogger : Logger
     {
         private readonly TextWriter writer;
-        public TextFileLogger(string fileName)
+        public TextFileLogger(string fileName, bool enabled)
         {
-            writer = File.CreateText(fileName);            
+            Enabled = enabled;
+            if(enabled)
+                writer = File.CreateText(fileName);            
         }
 
         public override void Log(string message)
         {
-            writer.WriteLine(message);
-            writer.Flush();
+            if (Enabled)
+            {
+                writer.WriteLine(message);
+                writer.Flush();
+            }          
         }
     }
 }

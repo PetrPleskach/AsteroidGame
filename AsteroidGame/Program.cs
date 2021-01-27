@@ -15,7 +15,7 @@ namespace AsteroidGame
         [STAThread]
         static void Main()
         {
-            textLogger = new TextFileLogger(@$"logs\{DateTime.Now.ToFileTime()}.log");
+            textLogger = new TextFileLogger(@$"logs\{DateTime.Now.ToFileTime()}.log", false);            
             debugLogger = new DebugLogger();
             textLogger.LogInfo("Application Load");
             debugLogger.LogInfo("Application Run");

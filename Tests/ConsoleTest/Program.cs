@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleTest
 {
@@ -6,7 +8,11 @@ namespace ConsoleTest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Lesson4_Solution2.notMain();
+            Lesson4_Solution3.notMain();
+
+
+            Console.ReadKey();
         }
     }
 }
