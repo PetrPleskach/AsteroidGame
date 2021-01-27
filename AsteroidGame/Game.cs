@@ -29,7 +29,7 @@ namespace AsteroidGame
         private const int numOfStars = 20;
         private const int numOfSmallStars = 100;
 
-        private static int numOfAsteroids = 20;
+        private static int numOfAsteroids = 5;
         
         //Игровые обьекты
         private static List<Bullet> bullets;
@@ -122,6 +122,7 @@ namespace AsteroidGame
         private static void Timer_Tick(object sender, EventArgs e)
         {
             Draw();
+            
             Update();
         }        
 
@@ -130,6 +131,7 @@ namespace AsteroidGame
             int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars;
             backgroundObjects = new BaseVisualObject[length];
             asteroids = new List<Asteroid>(numOfAsteroids);
+            asteroids.Load(numOfAsteroids);
             List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>(length);            
 
             #region заполняем gameObjectsList
@@ -157,12 +159,7 @@ namespace AsteroidGame
                     new Point(random.Next(4, 6), 0),
                     90));
             #endregion
-
-            for (int i = 0; i < numOfAsteroids; i++)//Заполняем список астероидов
-                asteroids.Add(new Asteroid(
-                    new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(5, 7), random.Next(-2, 3)),
-                    40));
+            
             backgroundObjects = gameObjectsList.ToArray();
             bullets = new List<Bullet>(50);
             energyBox = new EnergyBox(200) { IsEnabled = false };
@@ -218,10 +215,11 @@ namespace AsteroidGame
                 {
                     if (bullet.CheckCollision(asteroid))
                     {
-                        asteroid.IsEnabled = false;
+                        asteroid.Durability--;
+                        if (asteroid.Durability <= 0) asteroid.IsEnabled = false;
                         bullet.IsEnabled = false;
                         score++;
-                        if (!energyBox.IsEnabled && score % 10 == 0) energyBox.Drop(asteroid);
+                        if (!energyBox.IsEnabled && score % 50 == 0) energyBox.Drop(asteroid);
                         break;
                     }
                 }
@@ -233,15 +231,16 @@ namespace AsteroidGame
             foreach (Bullet bullet in bullets.Where(b => b.Rect.X > width && b.IsEnabled))
                       bullet.IsEnabled = false;
 
-            if (!asteroids.Any(a => a.IsEnabled))
+            if (asteroids.NumOfActiveAsteroids() < numOfAsteroids)
             {
-                asteroids.ForEach(a => a.IsEnabled = true);
-                asteroids.Add(new Asteroid(
-                              new Point(random.Next(0, Width), random.Next(0, Height)),
-                              new Point(random.Next(5, 7), random.Next(-2, 3)),
-                              40));
+                numOfAsteroids++;
+                asteroids.ActivateOrAddAsteriod(numOfAsteroids);
+                if(numOfAsteroids > 40)
+                {
+                    numOfAsteroids = 15;
+                    Asteroid.Power += 3;                    
+                }
             }
-
         }        
     }
 }

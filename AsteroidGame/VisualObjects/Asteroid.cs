@@ -21,10 +21,20 @@ namespace AsteroidGame.VisualObjects
             new Bitmap(@"..\..\..\img/asteroids/pngegg (9).png"),
             new Bitmap(@"..\..\..\img/asteroids/pngegg (10).png"),
         };
+        private int durability;
 
         //Свойства
         public Rectangle Rect => new Rectangle(position, size);
-        public int Power { get; set; } = 10;
+        public static int Power { get; set; } = 1;
+
+        public int Durability { set => durability = value; get => durability; }
+
+        public Asteroid() : base       
+            (new Point(Game.Width, random.Next(0, Game.Height)), new Point(random.Next(5, 7), random.Next(-2, 3)), new Size(40, 40))
+        {
+            image = asteroidSkins[random.Next(0, asteroidSkins.Count)];
+        }
+        
 
         public Asteroid(Point position, Point direction, int size) : base(position, direction, new Size(size, size))
         {
@@ -54,6 +64,13 @@ namespace AsteroidGame.VisualObjects
         }
 
         public bool CheckCollision(ICollision obj) => Rect.IntersectsWith(obj.Rect);
+
+        public void ResetPosition()
+        {
+            position = new Point(Game.Width, random.Next(0, Game.Height));
+            IsEnabled = true;
+            durability = Power;
+        }
 
     }
 }
