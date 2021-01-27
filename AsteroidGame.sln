@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsteroidGame", "AsteroidGame\AsteroidGame.csproj", "{58863E38-A80B-4EDF-AAE4-642247FDC68C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsteroidGame", "AsteroidGame\AsteroidGame.csproj", "{58863E38-A80B-4EDF-AAE4-642247FDC68C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{95AFE9A1-5BB0-425E-B3F8-146435855A58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTest", "Tests\ConsoleTest\ConsoleTest.csproj", "{B9459491-41BD-428A-B17E-796D58A895B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTest", "Tests\ConsoleTest\ConsoleTest.csproj", "{B9459491-41BD-428A-B17E-796D58A895B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeClasses", "EmployeeClasses\EmployeeClasses.csproj", "{22B6E17D-26DF-42AB-AF81-E4A39BFDE2F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{B9459491-41BD-428A-B17E-796D58A895B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9459491-41BD-428A-B17E-796D58A895B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9459491-41BD-428A-B17E-796D58A895B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22B6E17D-26DF-42AB-AF81-E4A39BFDE2F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B6E17D-26DF-42AB-AF81-E4A39BFDE2F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B6E17D-26DF-42AB-AF81-E4A39BFDE2F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B6E17D-26DF-42AB-AF81-E4A39BFDE2F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

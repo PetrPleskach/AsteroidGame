@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using AsteroidGame.VisualObjects;
 
 namespace AsteroidGame
 {
@@ -11,6 +12,8 @@ namespace AsteroidGame
         private static BufferedGraphicsContext contex;
         private static BufferedGraphics buffer;
         private static BaseVisualObject[] gameObjects;//Массив обьектов для отрисовки
+        private static int width;//ширина игровой области
+        private static int heigth;//высота игровой области
 
         //константы для задания количества обьектов разных типов на заставке
         private const int numOfPLanets = 2;
@@ -18,9 +21,23 @@ namespace AsteroidGame
         private const int numOfStars = 20;
         private const int numOfSmallStars = 100;
 
-        //Ширина и высота игровой области
-        public static int Width { get; set; }
-        public static int Height { get; set; }
+        //Свойства ширины и высоты игровой области
+        public static int Width { get => width;
+            set 
+            {
+                if (value > 1000 || value < 0)
+                    throw new ArgumentOutOfRangeException("Ширина окна не может быть больше 1000px или 0px");
+                else
+                    width = value;
+            } }
+        public static int Height { get => heigth;
+            set 
+            {
+                if (value > 1000 || value < 0)
+                    throw new ArgumentOutOfRangeException("Высота окна не может быть больше 1000px или 0px");
+                else
+                    heigth = value;
+            } }
 
         public static void Initialize(Form form)
         {
