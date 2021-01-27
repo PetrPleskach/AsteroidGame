@@ -17,8 +17,9 @@ namespace AsteroidGame
         private const int numOfPLanets = 3;
         private const int numOfBigStars = 7;
         private const int numOfStars = 20;
-        private const int numOfSmallStars = 100;
-        private const int numOfAsteroids = 15;        
+        private const int numOfSmallStars = 100;  
+        
+        public static Timer timer;
 
         //Ширина и высота игровой области
         public static int Width { get; set; }
@@ -35,7 +36,7 @@ namespace AsteroidGame
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
             buffer = contex.Allocate(graphics, new Rectangle(0, 0, Width, Height));
             Load();//Выполняем загрузку обьектов
-            Timer timer = new Timer { Interval = 100 };//Добавляем таймер, задаём интервал для вызова события
+            timer = new Timer { Interval = 100 };//Добавляем таймер, задаём интервал для вызова события
             timer.Tick += Timer_Tick;//Создаём событие для таймера
             timer.Start();
         }
@@ -51,7 +52,7 @@ namespace AsteroidGame
         }
         public static void Load()
         {
-            int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars + numOfAsteroids;
+            int length = numOfStars + numOfSmallStars + numOfPLanets + numOfBigStars;
             gameObjects = new BaseVisualObject[length];
             List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>();                                   
             for (int i = 0; i < numOfSmallStars; i++)
@@ -76,13 +77,8 @@ namespace AsteroidGame
                 gameObjectsList.Add(new Planet(
                     new Point(random.Next(0, Width), random.Next(0, Height)),
                     new Point(random.Next(4, 6), 0),
-                    90));
-            
-            for (int i = 0; i < numOfAsteroids; i++)
-                gameObjectsList.Add(new Asteroid(
-                    new Point(random.Next(0, Width), random.Next(0, Height)),
-                    new Point(random.Next(5, 7), random.Next(-4, 5)),
-                    40));
+                    90));            
+
             gameObjects = gameObjectsList.ToArray();
         }
         public static void Update()

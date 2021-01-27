@@ -18,8 +18,8 @@ namespace AsteroidGame.VisualObjects
             Position.X -= Direction.X;
             if (Position.X < -Size.Width)
             {
-                Position.X = SplashScreen.Width + Size.Width;
-                Position.Y = random.Next(Size.Height, (SplashScreen.Height - Size.Height));//Меняем положение обьекта
+                Position.X = Game.Width + Size.Width;
+                Position.Y = random.Next(Size.Height, (Game.Height - Size.Height));//Меняем положение обьекта
             }
         }        
     }

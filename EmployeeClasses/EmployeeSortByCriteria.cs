@@ -74,14 +74,22 @@ namespace EmployeeClasses
         //Методы сортировки по критериям
         private int SortByName(Employee x, Employee y) => x.Name.CompareTo(y.Name);
         private int SortBySurName(Employee x, Employee y) => x.SurName.CompareTo(y.SurName);
-        private int SortByAge(Employee x, Employee y) => x.Age - y.Age;
+        private int SortByAge(Employee x, Employee y)
+        {
+            if (x.Age > y.Age)
+                return 1;
+            if (x.Age < y.Age)
+                return -1;
+            return 0;
+        }
         private int SortById(Employee x, Employee y) => x.Id.CompareTo(y.Id);
         private int SortBySalary(Employee x, Employee y)
-        {
+        {            
             if (Math.Abs(x.Salary - y.Salary) <= 0.001m)
                 return 0;
-            else
-                return (int)(x.Salary - y.Salary);
+            if (x.Salary > y.Salary)
+                return 1;
+            return -1;
         }
     }
 }

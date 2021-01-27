@@ -12,12 +12,10 @@ namespace AsteroidGame.VisualObjects
         private Bitmap image;
         private static List<Bitmap> asteroidSkins = new List<Bitmap>()
         {
-            new Bitmap(@"..\..\..\img/asteroids/pngegg (1).png"),
-            new Bitmap(@"..\..\..\img/asteroids/pngegg (2).png"),
+            new Bitmap(@"..\..\..\img/asteroids/pngegg (1).png"),            
             new Bitmap(@"..\..\..\img/asteroids/pngegg (3).png"),
             new Bitmap(@"..\..\..\img/asteroids/pngegg (4).png"),
-            new Bitmap(@"..\..\..\img/asteroids/pngegg (5).png"),
-            new Bitmap(@"..\..\..\img/asteroids/pngegg (6).png"),
+            new Bitmap(@"..\..\..\img/asteroids/pngegg (5).png"),            
             new Bitmap(@"..\..\..\img/asteroids/pngegg (7).png"),
             new Bitmap(@"..\..\..\img/asteroids/pngegg (8).png"),
             new Bitmap(@"..\..\..\img/asteroids/pngegg (9).png"),
@@ -35,7 +33,7 @@ namespace AsteroidGame.VisualObjects
 
         public override void Draw(Graphics graphics)
         {
-            graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height);
+            graphics.DrawImage(image, Position.X, Position.Y, Size.Width, Size.Height);            
         }
 
         public override void Update()
