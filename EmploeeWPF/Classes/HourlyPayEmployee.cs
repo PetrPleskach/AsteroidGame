@@ -6,7 +6,7 @@ namespace EmploeeWPF.Classes
 {
     class HourlyPayEmployee : Employee
     {
-        public HourlyPayEmployee(string name, string surName, int age, decimal rate) : base(name, surName, age)
+        public HourlyPayEmployee(string name, string surName, int age, decimal rate, string departament) : base(name, surName, age, departament)
         {
             id = ("H" + age + name[^1] + surName[0] + random.Next(100, 1000)).ToUpper();
             PaymentCalculation(rate);

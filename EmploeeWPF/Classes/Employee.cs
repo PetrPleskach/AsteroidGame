@@ -15,18 +15,21 @@ namespace EmploeeWPF.Classes
         protected int age;
         protected string id;
         protected decimal salary;
+        protected string departament;
 
         public string Name => name;
         public string SurName => surName;
         public int Age => age;
         public string Id => id;
         public decimal Salary => salary;
+        public string Departament => departament;
 
-        protected Employee(string name, string surName, int age)
+        protected Employee(string name, string surName, int age, string departament)
         {
             this.name = name;
             this.surName = surName;
             this.age = age;
+            this.departament = departament;
         }
 
         /// <summary>
@@ -38,7 +41,7 @@ namespace EmploeeWPF.Classes
         /// Переопределенный метод для вывода данных о работнике
         /// </summary>
         /// <returns>Данные о работнике в виде строки</returns>
-        public override string ToString() => $"{id} | {name,-8} | {surName,-8} | возраст: {age}, зарплата: {salary:C2}";
+        public override string ToString() => $"{id} {name,-8} {surName,-8} {age} {salary:C2} {departament}";
 
         public int CompareTo(Employee otherEmployee)
         {
