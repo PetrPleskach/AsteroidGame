@@ -22,7 +22,7 @@ namespace EmploeeWPF
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
     }
 }
