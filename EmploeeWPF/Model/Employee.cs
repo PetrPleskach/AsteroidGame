@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmploeeWPF.Classes
+namespace EmploeeWPF.Model
 {
     abstract class Employee : IComparable<Employee>
     {
@@ -15,21 +15,21 @@ namespace EmploeeWPF.Classes
         protected int age;
         protected string id;
         protected decimal salary;
-        protected string departament;
+        //protected string departament;
 
-        public string Name => name;
-        public string SurName => surName;
-        public int Age => age;
         public string Id => id;
+        public string Name => name;
+        public string Surname => surName;
+        public int Age => age;        
         public decimal Salary => salary;
-        public string Departament => departament;
+        //public string Departament => departament;
 
-        protected Employee(string name, string surName, int age, string departament)
+        protected Employee(string name, string surName, int age/*, string departament*/)
         {
             this.name = name;
             this.surName = surName;
             this.age = age;
-            this.departament = departament;
+            //this.departament = departament;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace EmploeeWPF.Classes
         /// Переопределенный метод для вывода данных о работнике
         /// </summary>
         /// <returns>Данные о работнике в виде строки</returns>
-        public override string ToString() => $"{id} {name,-8} {surName,-8} {age} {salary:C2} {departament}";
+        public override string ToString() => $"{id} {name,-8} {surName,-8} {age} {salary:C2}";
 
         public int CompareTo(Employee otherEmployee)
         {

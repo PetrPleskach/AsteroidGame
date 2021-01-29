@@ -7,7 +7,7 @@
         <Setter Property="Height" Value="50"/>
     </Style>
     
-    <Style x:Name="BorderStyle" TargetType="Border">
+    <Style x:Key="BorderStyle" TargetType="Border">
         <Setter Property="Margin" Value="10"/>
         <Setter Property="BorderBrush" Value="YellowGreen"/>
         <Setter Property="BorderThickness" Value="5"/>        
@@ -20,5 +20,13 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="DarkGoldenrod"/>
     </Style>
-        
+
+    <Style TargetType="DataGrid">
+        <Setter Property="GridLinesVisibility" Value="All"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="AutoGenerateColumns" Value="True"/>        
+        <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
+        <Setter Property="ColumnWidth" Value="1*"/>
+    </Style>
+
 </ResourceDictionary>

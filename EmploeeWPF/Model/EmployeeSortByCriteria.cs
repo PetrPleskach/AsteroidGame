@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EmploeeWPF.Classes
+namespace EmploeeWPF.Model
 {
     /// <summary>
     /// перечислитель условий сортировки
@@ -73,7 +73,7 @@ namespace EmploeeWPF.Classes
 
         //Методы сортировки по критериям
         private int SortByName(Employee x, Employee y) => x.Name.CompareTo(y.Name);
-        private int SortBySurName(Employee x, Employee y) => x.SurName.CompareTo(y.SurName);
+        private int SortBySurName(Employee x, Employee y) => x.Surname.CompareTo(y.Surname);
         private int SortByAge(Employee x, Employee y)
         {
             if (x.Age > y.Age)
