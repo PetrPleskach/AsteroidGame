@@ -9,6 +9,7 @@
     <Window.Resources>
 
     </Window.Resources>
+    
     <Grid x:Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -18,37 +19,41 @@
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Margin="10,10,10,10" BorderBrush="YellowGreen" BorderThickness="5" Grid.RowSpan="2">
+        
+        <Border Grid.Column="0" Grid.RowSpan="2">
             <StackPanel Margin="1">
-                <TextBlock Margin="1" FontSize="14" FontStyle="Italic" HorizontalAlignment="Center" Foreground="DarkGoldenrod">Список сотрудников</TextBlock>
+                <TextBlock Style="{StaticResource TextBlock}">Выбранный депертамент</TextBlock>
+                <ComboBox Margin="1" Height="50">
+                    <ComboBoxItem></ComboBoxItem>
+                </ComboBox>
+                <TextBlock Style="{StaticResource TextBlock}">Список сотрудников депертамента</TextBlock>                
                 <DataGrid x:Name="employesDataGrid" HorizontalAlignment="Left" AutoGenerateColumns="False" BorderThickness="3" BorderBrush="Gray" CanUserResizeColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn x:Name="idColumn" Header="ID" IsReadOnly="True" Width="1*"/>
                         <DataGridTextColumn x:Name="nameColumn" Header="Name" IsReadOnly="True" Width="2*"/>
                         <DataGridTextColumn x:Name="surnameColumn" Header="Surname" IsReadOnly="True" Width="2*"/>
                         <DataGridTextColumn x:Name="ageColumn" Header="Age" IsReadOnly="True" Width="0.5*"/>
-                        <DataGridTextColumn x:Name="salaryColumn" Header="Salary" IsReadOnly="True" Width="1*"/>
-                        <DataGridTextColumn x:Name="departamentColumn" Header="Departament" IsReadOnly="True" Width="1*"/>
+                        <DataGridTextColumn x:Name="salaryColumn" Header="Salary" IsReadOnly="True" Width="1*"/>                        
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
         </Border>
 
-        <Border Grid.Column="1" Grid.Row="0" Margin="10" BorderThickness="5" BorderBrush="YellowGreen">
-            <StackPanel Margin="5">
-                <TextBlock HorizontalAlignment="Center" FontSize="14" FontStyle="Italic" Foreground="DarkGoldenrod">Сотрудники</TextBlock>
-                <Button x:Name="employeAddButton" Margin="0,10" Height="40">Добавить</Button>
-                <Button x:Name="employeDelButton" Margin="0, 10" Height="40">Удалить</Button>
+        <Border Grid.Column="1" Grid.Row="0">
+            <StackPanel Margin="1">
+                <TextBlock Style="{StaticResource TextBlock}">Сотрудники</TextBlock>
+                <Button x:Name="employeAddButton">Добавить</Button>
+                <Button x:Name="employeEditButton">Редакировать</Button>
+                <Button x:Name="employeDelButton">Удалить</Button>
             </StackPanel> 
         </Border>
 
-        <Border Grid.Column="1" Grid.Row="1" Margin="5">
-            <StackPanel Margin="5">
-                <TextBlock>Департамент</TextBlock>
-                <Button x:Name="departamentAddButton"  Margin="0,10">Добавить</Button>
-                <Button x:Name="departamentDelButton" Margin="0, 10">Удалить</Button>
+        <Border Grid.Column="1" Grid.Row="1">
+            <StackPanel Margin="1">
+                <TextBlock Style="{StaticResource TextBlock}">Департамент</TextBlock>
+                <Button x:Name="departamentAddButton">Добавить</Button>
+                <Button x:Name="departamentDelButton">Удалить</Button>
             </StackPanel>
         </Border>
-
     </Grid>
 </Window>
