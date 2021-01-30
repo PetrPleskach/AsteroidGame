@@ -52,7 +52,13 @@ namespace EmploeeWPF
 
         private void departamentEditBtn_Click(object sender, RoutedEventArgs e)
         {
-            DepartamentAddOrEditWindow deptWindow = new DepartamentAddOrEditWindow();
+            var x = (Departament)DepartamentsBox.SelectedItem;
+            if (x == null)
+            {
+                MessageBox.Show("Сначала выберите департамент!", "Департамент не выбран", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            DepartamentAddOrEditWindow deptWindow = new DepartamentAddOrEditWindow(x.Name);
             deptWindow.Owner = this;
             deptWindow.ShowDialog();
         }

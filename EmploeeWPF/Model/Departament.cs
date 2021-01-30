@@ -8,8 +8,14 @@ namespace EmploeeWPF.Model
 {
     class Departament
     {
+        public Departament() { }
+        public Departament(string name)
+        {
+            Name = name;
+        }
+
         public string Name { get; set; }
 
-        public List<FixedPayEmploee> Employees { get; set; }
+        public List<FixedPayEmploee> Employees { get; set; }        
     }
 }

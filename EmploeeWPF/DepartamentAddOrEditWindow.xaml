@@ -3,13 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EmploeeWPF"
-        xmlns:vm="clr-namespace:EmploeeWPF.ViewModel"
+        xmlns:local="clr-namespace:EmploeeWPF"               
         mc:Ignorable="d"
         Title="Departament" Height="250" Width="600" WindowStartupLocation="CenterOwner">
-    <Window.DataContext>
-        <vm:MainWindowViewModel/>
-    </Window.DataContext>
 
     <Window.Resources>
 
@@ -19,10 +15,12 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="Название департамента" Style="{StaticResource TextBlock}"/>
-                <TextBox HorizontalAlignment="Center" Width="500" Height="50" FontSize="26" TextAlignment="Center"/>
+                <TextBox x:Name="DepartamentName" HorizontalAlignment="Center" Width="500" Height="50" FontSize="26" TextAlignment="Center"/>
                 <DockPanel HorizontalAlignment="Center" Width="500">
-                    <Button HorizontalAlignment="Left" Width="150" Content="OK"/>
-                    <Button HorizontalAlignment="Right" Width="150" Content="Cancel"/>
+                    <Button HorizontalAlignment="Left" Width="150" Content="Save"
+                            Click="onSaveBtn_Click"/>
+                    <Button HorizontalAlignment="Right" Width="150" Content="Cancel"
+                            Click="onCancelBtn_Click"/>
                 </DockPanel>
             </StackPanel>
         </Border>
