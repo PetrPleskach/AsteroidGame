@@ -21,6 +21,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6*"/>
             <ColumnDefinition Width="2*"/>
@@ -29,26 +30,36 @@
         <Border Grid.Column="0" Grid.RowSpan="2" Style="{StaticResource BorderStyle}">
             <StackPanel Margin="1">
                 <TextBlock Style="{StaticResource TextBlock}">Выбранный депертамент</TextBlock>
-                <ComboBox x:Name="DepartamentsBox" Margin="1" Height="50" ItemsSource="{Binding departaments}" DisplayMemberPath="Name" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0"/>
+                <ComboBox x:Name="DepartamentsBox" Margin="1" Height="50"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0"
+                          ItemsSource="{Binding Departaments}" DisplayMemberPath="Name"/>
                 <TextBlock Style="{StaticResource TextBlock}">Список сотрудников депертамента</TextBlock>
-                <DataGrid x:Name="employesDataGrid" ItemsSource="{Binding SelectedItem.Employees, ElementName=DepartamentsBox}"/>
+                <DataGrid x:Name="employesDataGrid" ItemsSource="{Binding SelectedItem.Employees, ElementName=DepartamentsBox}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Id}" Header="ID" Width="1*"/>
+                        <DataGridTextColumn Binding="{Binding Name}" Header="Имя" Width="1.5*"/>
+                        <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия" Width="1.5*"/>
+                        <DataGridTextColumn Binding="{Binding Age}" Header="Возраст" Width="0.6*"/>
+                        <DataGridTextColumn Binding="{Binding Salary}" Header="Зарплата" Width="1*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
         </Border>
 
         <Border Grid.Column="1" Grid.Row="0" Style="{StaticResource BorderStyle}">
             <StackPanel Margin="1">
                 <TextBlock Style="{StaticResource TextBlock}">Сотрудники</TextBlock>
-                <Button x:Name="employeAddButton">Добавить</Button>
-                <Button x:Name="employeEditButton">Редакировать</Button>
-                <Button x:Name="employeDelButton">Удалить</Button>
+                <Button x:Name="employeAddButton" Click="onEmployeeAddBtn_Click">Добавить</Button>
+                <Button x:Name="employeEditButton" Click="onEmployeeAddBtn_Click">Редакировать</Button>
+                <Button x:Name="employeDelButton" Click="onEmployeeAddBtn_Click">Удалить</Button>
             </StackPanel> 
         </Border>
 
         <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource BorderStyle}">
             <StackPanel Margin="1">
                 <TextBlock Style="{StaticResource TextBlock}">Департамент</TextBlock>
-                <Button x:Name="departamentAddButton">Добавить</Button>
-                <Button x:Name="departamentDelButton">Удалить</Button>
+                <Button x:Name="departamentAddButton" Click="onDepartamentAddBtn_Click">Добавить</Button>
+                <Button x:Name="departamentEditButton" Click="onEmployeeAddBtn_Click">Редактировать</Button>
+                <Button x:Name="departamentDelButton" Click="onDepartamentDelBtn_Click">Удалить</Button>
             </StackPanel>
         </Border>
     </Grid>

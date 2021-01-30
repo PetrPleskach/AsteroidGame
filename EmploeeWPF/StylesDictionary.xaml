@@ -23,10 +23,8 @@
 
     <Style TargetType="DataGrid">
         <Setter Property="GridLinesVisibility" Value="All"/>
-        <Setter Property="HeadersVisibility" Value="Column"/>
-        <Setter Property="AutoGenerateColumns" Value="True"/>        
-        <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
-        <Setter Property="ColumnWidth" Value="1*"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>                
+        <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>        
     </Style>
 
 </ResourceDictionary>
