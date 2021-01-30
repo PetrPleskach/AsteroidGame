@@ -34,8 +34,9 @@ namespace EmploeeWPF
         
         private void onDepartamentAddBtn_Click(object sender, RoutedEventArgs e)
         {
-            var model = (MainWindowViewModel)DataContext;
-            model.AddNewDepartament(); 
+            DepartamentAddOrEditWindow deptWindow = new DepartamentAddOrEditWindow();
+            deptWindow.Owner = this;
+            deptWindow.ShowDialog();
         }
 
         private void onDepartamentDelBtn_Click(object sender, RoutedEventArgs e)
@@ -47,6 +48,13 @@ namespace EmploeeWPF
             if (selectedDept == null) return;
 
             model.Departaments.Remove(selectedDept);            
+        }
+
+        private void departamentEditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DepartamentAddOrEditWindow deptWindow = new DepartamentAddOrEditWindow();
+            deptWindow.Owner = this;
+            deptWindow.ShowDialog();
         }
     }
 }

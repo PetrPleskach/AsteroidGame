@@ -58,7 +58,7 @@
             <StackPanel Margin="1">
                 <TextBlock Style="{StaticResource TextBlock}">Департамент</TextBlock>
                 <Button x:Name="departamentAddButton" Click="onDepartamentAddBtn_Click">Добавить</Button>
-                <Button x:Name="departamentEditButton" Click="onEmployeeAddBtn_Click">Редактировать</Button>
+                <Button x:Name="departamentEditButton" Click="departamentEditBtn_Click">Редактировать</Button>
                 <Button x:Name="departamentDelButton" Click="onDepartamentDelBtn_Click">Удалить</Button>
             </StackPanel>
         </Border>
