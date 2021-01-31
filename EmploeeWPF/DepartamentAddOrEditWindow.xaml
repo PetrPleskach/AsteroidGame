@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EmploeeWPF"               
         mc:Ignorable="d"
-        Title="Departament" Height="250" Width="600" WindowStartupLocation="CenterOwner">
+        Title="Создание/Редактирование департамента" Height="250" Width="600" WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
 
@@ -14,7 +14,7 @@
     <Grid>
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="Название департамента" Style="{StaticResource TextBlock}"/>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="Название департамента" Style="{StaticResource TextBlockStyle}"/>
                 <TextBox x:Name="DepartamentName" HorizontalAlignment="Center" Width="500" Height="50" FontSize="26" TextAlignment="Center"/>
                 <DockPanel HorizontalAlignment="Center" Width="500">
                     <Button HorizontalAlignment="Left" Width="150" Content="Save"

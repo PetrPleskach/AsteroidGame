@@ -14,22 +14,19 @@ namespace EmploeeWPF.Model
         protected string surName;
         protected int age;
         protected string id;
-        protected decimal salary;
-        //protected string departament;
+        protected decimal salary;        
 
         public string Id => id;
         public string Name => name;
         public string Surname => surName;
         public int Age => age;        
-        public decimal Salary => salary;
-        //public string Departament => departament;
+        public decimal Salary => salary;        
 
-        protected Employee(string name, string surName, int age/*, string departament*/)
+        protected Employee(string name, string surName, int age)
         {
             this.name = name;
             this.surName = surName;
-            this.age = age;
-            //this.departament = departament;
+            this.age = age;            
         }
 
         /// <summary>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EmploeeWPF.Model"
         xmlns:vm="clr-namespace:EmploeeWPF.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="Список сотрудников" Height="600" Width="800">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -29,10 +29,10 @@
 
         <Border Grid.Column="0" Grid.RowSpan="2" Style="{StaticResource BorderStyle}">
             <StackPanel Margin="1">
-                <TextBlock Style="{StaticResource TextBlock}">Выбранный депертамент</TextBlock>
+                <TextBlock Style="{StaticResource TextBlockStyle}">Выбранный депертамент</TextBlock>
                 <ComboBox x:Name="DepartamentsBox" Margin="1" Height="50"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0"
                           ItemsSource="{Binding Departaments, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"                         />
-                <TextBlock Style="{StaticResource TextBlock}">Список сотрудников депертамента</TextBlock>
+                <TextBlock Style="{StaticResource TextBlockStyle}">Список сотрудников депертамента</TextBlock>
                 <DataGrid x:Name="employesDataGrid" ItemsSource="{Binding SelectedItem.Employees, ElementName=DepartamentsBox}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Id}" Header="ID" Width="1*"/>
@@ -47,18 +47,18 @@
 
         <Border Grid.Column="1" Grid.Row="0" Style="{StaticResource BorderStyle}">
             <StackPanel Margin="1">
-                <TextBlock Style="{StaticResource TextBlock}">Сотрудники</TextBlock>
+                <TextBlock Style="{StaticResource TextBlockStyle}">Сотрудники</TextBlock>
                 <Button x:Name="employeAddButton" Click="onEmployeeAddBtn_Click">Добавить</Button>
-                <Button x:Name="employeEditButton" Click="onEmployeeAddBtn_Click">Редакировать</Button>
-                <Button x:Name="employeDelButton" Click="onEmployeeAddBtn_Click">Удалить</Button>
+                <Button x:Name="employeEditButton" Click="onEmployeeEditBtn_Click">Редакировать</Button>
+                <Button x:Name="employeDelButton" Click="onEmployeeDelBtn_Click">Удалить</Button>
             </StackPanel> 
         </Border>
 
         <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource BorderStyle}">
             <StackPanel Margin="1">
-                <TextBlock Style="{StaticResource TextBlock}">Департамент</TextBlock>
+                <TextBlock Style="{StaticResource TextBlockStyle}">Департамент</TextBlock>
                 <Button x:Name="departamentAddButton" Click="onDepartamentAddBtn_Click">Добавить</Button>
-                <Button x:Name="departamentEditButton" Click="departamentEditBtn_Click">Редактировать</Button>
+                <Button x:Name="departamentEditButton" Click="onDepartamentEditBtn_Click">Редактировать</Button>
                 <Button x:Name="departamentDelButton" Click="onDepartamentDelBtn_Click">Удалить</Button>
             </StackPanel>
         </Border>

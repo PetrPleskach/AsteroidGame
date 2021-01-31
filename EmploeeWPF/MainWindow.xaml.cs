@@ -30,12 +30,37 @@ namespace EmploeeWPF
 
         private void onEmployeeAddBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Clicked");
+            var window = new EmployeeAddOrCreateWindow();
+            window.Owner = this;
+            window.ShowDialog();
         }
-        
+
+        private void onEmployeeEditBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void onEmployeeDelBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void onDepartamentAddBtn_Click(object sender, RoutedEventArgs e)
         {
-            DepartamentAddOrEditWindow deptWindow = new DepartamentAddOrEditWindow();
+            var deptWindow = new DepartamentAddOrEditWindow();
+            deptWindow.Owner = this;
+            deptWindow.ShowDialog();
+        }
+
+        private void onDepartamentEditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var model = (MainWindowViewModel)DataContext;
+            if (DepartamentsBox.SelectedItem == null)
+            {
+                MessageBox.Show("Сначала выберите департамент!", "Департамент не выбран", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            var deptWindow = new DepartamentAddOrEditWindow(model, DepartamentsBox.SelectedIndex);
             deptWindow.Owner = this;
             deptWindow.ShowDialog();
         }
@@ -49,19 +74,6 @@ namespace EmploeeWPF
             if (selectedDept == null) return;
 
             model.Departaments.Remove(selectedDept);            
-        }
-
-        private void departamentEditBtn_Click(object sender, RoutedEventArgs e)
-        {
-            var model = (MainWindowViewModel)DataContext;
-            if (DepartamentsBox.SelectedItem == null)
-            {
-                MessageBox.Show("Сначала выберите департамент!", "Департамент не выбран", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            DepartamentAddOrEditWindow deptWindow = new DepartamentAddOrEditWindow(model, DepartamentsBox.SelectedIndex);
-            deptWindow.Owner = this;
-            deptWindow.ShowDialog();            
         }
     }
 }
