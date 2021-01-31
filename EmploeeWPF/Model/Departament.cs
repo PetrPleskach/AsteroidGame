@@ -16,6 +16,7 @@ namespace EmploeeWPF.Model
         public Departament(string name)
         {
             this.name = name;
+            Employees = new ObservableCollection<FixedPayEmploee>();
         }
 
         private string name;
@@ -30,7 +31,7 @@ namespace EmploeeWPF.Model
             }
         }
 
-        public List<FixedPayEmploee> Employees { get; set; }
+        public ObservableCollection<FixedPayEmploee> Employees { get; set; }
 
         private void NotifyPropertyChanged(string propertyName = "")
         {

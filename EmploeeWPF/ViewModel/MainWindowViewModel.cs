@@ -15,20 +15,21 @@ namespace EmploeeWPF.ViewModel
 
         public MainWindowViewModel()
         {
-            var j = 1;
             var departaments = Enumerable.Range(1, 10).Select(i => new Departament
             {
                 Name = $"Dept - {i}",
-                Employees = Enumerable.Range(1, 10).Select(k => new FixedPayEmploee($"Name{j}", $"Surname{j}", 22 + j++, j * 5m)).ToList()
+                Employees = NewEmployees() 
             }).ToList();
 
             Departaments = new ObservableCollection<Departament>(departaments);
         }
 
-        public void AddNewDepartament()
+        private ObservableCollection<FixedPayEmploee> NewEmployees()
         {
-            var dept = new Departament() { Name = $"Dept - {Departaments.Count + 1}" };
-            Departaments.Add(dept);            
+            int j = 1;
+            var rndEmployes = Enumerable.Range(1, 10).Select(k => new FixedPayEmploee($"Name{j}", $"Surname{j}", 22 + j++, j * 5m)).ToList();
+            var emp = new ObservableCollection<FixedPayEmploee>(rndEmployes);
+            return emp;
         }
     }
 }

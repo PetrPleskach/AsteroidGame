@@ -30,8 +30,7 @@ namespace EmploeeWPF
 
         private void onEmployeeAddBtn_Click(object sender, RoutedEventArgs e)
         {
-            var window = new EmployeeAddOrCreateWindow();
-            window.Owner = this;
+            var window = new EmployeeAddOrCreateWindow((MainWindowViewModel)DataContext);            
             window.ShowDialog();
         }
 
@@ -42,7 +41,12 @@ namespace EmploeeWPF
 
         private void onEmployeeDelBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (MessageBox.Show("Вы уверены", "Удаление", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No) return;
+            
+            var model = (MainWindowViewModel)DataContext;
+            var selectedDept = model.Departaments[DepartamentsBox.SelectedIndex];
 
+            selectedDept.Employees.Remove(employesDataGrid.SelectedItem as FixedPayEmploee);            
         }
 
         private void onDepartamentAddBtn_Click(object sender, RoutedEventArgs e)

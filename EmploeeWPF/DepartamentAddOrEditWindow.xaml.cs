@@ -47,10 +47,9 @@ namespace EmploeeWPF
                 return;
             }
 
-            if (index >= 0)           
-                model.Departaments[index].Name = DepartamentName.Text; 
-
-            else            
+            if (index >= 0)            
+                model.Departaments[index].Name = DepartamentName.Text;
+            else
                 model.Departaments.Add(new Departament(DepartamentName.Text));  
             
             Close();
