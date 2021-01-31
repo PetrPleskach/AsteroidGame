@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace EmploeeWPF
 {
@@ -52,15 +53,15 @@ namespace EmploeeWPF
 
         private void departamentEditBtn_Click(object sender, RoutedEventArgs e)
         {
-            var x = (Departament)DepartamentsBox.SelectedItem;
-            if (x == null)
+            var model = (MainWindowViewModel)DataContext;
+            if (DepartamentsBox.SelectedItem == null)
             {
                 MessageBox.Show("Сначала выберите департамент!", "Департамент не выбран", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            DepartamentAddOrEditWindow deptWindow = new DepartamentAddOrEditWindow(x.Name);
+            DepartamentAddOrEditWindow deptWindow = new DepartamentAddOrEditWindow(model, DepartamentsBox.SelectedIndex);
             deptWindow.Owner = this;
-            deptWindow.ShowDialog();
+            deptWindow.ShowDialog();            
         }
     }
 }

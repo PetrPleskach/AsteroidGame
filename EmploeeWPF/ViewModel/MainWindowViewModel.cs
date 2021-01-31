@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using EmploeeWPF.Model;
 
 namespace EmploeeWPF.ViewModel
 {
-    class MainWindowViewModel
+    public class MainWindowViewModel
     {
         public ObservableCollection<Departament> Departaments { get; set; }
 

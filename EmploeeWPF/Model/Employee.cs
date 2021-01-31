@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmploeeWPF.Model
 {
-    abstract class Employee : IComparable<Employee>
+    public abstract class Employee : IComparable<Employee>
     {
         protected static Random random = new Random();
         //Поля общие для всех работников

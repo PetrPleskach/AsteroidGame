@@ -31,7 +31,7 @@
             <StackPanel Margin="1">
                 <TextBlock Style="{StaticResource TextBlock}">Выбранный депертамент</TextBlock>
                 <ComboBox x:Name="DepartamentsBox" Margin="1" Height="50"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0"
-                          ItemsSource="{Binding Departaments}" DisplayMemberPath="Name"/>
+                          ItemsSource="{Binding Departaments, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Name"                         />
                 <TextBlock Style="{StaticResource TextBlock}">Список сотрудников депертамента</TextBlock>
                 <DataGrid x:Name="employesDataGrid" ItemsSource="{Binding SelectedItem.Employees, ElementName=DepartamentsBox}" AutoGenerateColumns="False">
                     <DataGrid.Columns>

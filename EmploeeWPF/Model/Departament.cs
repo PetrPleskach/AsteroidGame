@@ -1,21 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EmploeeWPF.Model
 {
-    class Departament
+    public class Departament: INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;        
+
         public Departament() { }
         public Departament(string name)
         {
-            Name = name;
+            this.name = name;
         }
 
-        public string Name { get; set; }
+        private string name;
 
-        public List<FixedPayEmploee> Employees { get; set; }        
+        public string Name
+        { 
+            get => name;
+            set
+            {
+                name = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public List<FixedPayEmploee> Employees { get; set; }
+
+        private void NotifyPropertyChanged(string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
