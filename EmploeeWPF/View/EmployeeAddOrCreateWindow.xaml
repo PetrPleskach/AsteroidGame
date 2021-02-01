@@ -14,7 +14,7 @@
             <Border Style="{StaticResource BorderStyle}">
                 <StackPanel Grid.Column ="0">
                     <TextBlock Style="{StaticResource TextBlockStyle}" Text="ID" HorizontalAlignment="Left"/>
-                    <TextBox Name="IdTextBox" Style="{StaticResource TextBoxStyle}"/>
+                    <TextBox x:Name="IdTextBox" Style="{StaticResource TextBoxStyle}"/>
                     
                     <TextBlock Style="{StaticResource TextBlockStyle}" Text="Имя" HorizontalAlignment="Left"/>
                     <TextBox Name="NameTextBox" Style="{StaticResource TextBoxStyle}"/>

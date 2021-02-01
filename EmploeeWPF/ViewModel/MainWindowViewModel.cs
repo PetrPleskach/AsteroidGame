@@ -24,6 +24,10 @@ namespace EmploeeWPF.ViewModel
             Departaments = new ObservableCollection<Departament>(departaments);
         }
 
+        /// <summary>
+        /// Метод получения наблюдаемого списка сотрудников для запонения департамента
+        /// </summary>
+        /// <returns></returns>
         private ObservableCollection<FixedPayEmploee> NewEmployees()
         {
             int j = 1;
