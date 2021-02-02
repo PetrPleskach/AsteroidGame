@@ -1,32 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EmploeeWPF.Model
 {
-    public abstract class Employee : IComparable<Employee>
+    public abstract class Employee : IComparable<Employee>, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         protected static Random random = new Random();
         //Поля общие для всех работников
         protected string name;
         protected string surName;
         protected int age;
         protected string id;
-        protected decimal salary;        
+        protected decimal salary;
 
-        public string Id => id;
-        public string Name => name;
-        public string Surname => surName;
-        public int Age => age;        
-        public decimal Salary => salary;        
+        public string Id
+        {
+            get => id; set
+            {
+                id = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public string Name
+        {
+            get => name; set
+            {
+                name = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public string Surname
+        {
+            get => surName; set
+            {
+                surName = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public int Age
+        {
+            get => age; set
+            {
+                age = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public decimal Salary
+        {
+            get => salary; set
+            {
+                salary = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         protected Employee(string name, string surName, int age)
         {
             this.name = name;
             this.surName = surName;
-            this.age = age;            
+            this.age = age;
         }
 
         /// <summary>
@@ -45,6 +83,11 @@ namespace EmploeeWPF.Model
             if (otherEmployee == null)
                 throw new ArgumentNullException(nameof(otherEmployee), $"{nameof(otherEmployee)} - cannot be null");
             return surName.CompareTo(otherEmployee.surName);
+        }
+
+        private void NotifyPropertyChanged(string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
