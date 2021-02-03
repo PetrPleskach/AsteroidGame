@@ -4,13 +4,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AsteroidGame.Properties.Resources;
 
 namespace AsteroidGame.VisualObjects
 {
     class SpaceShip : BaseVisualObject, ICollision
     {
         public event EventHandler ShipDestoyed;
-        private Image image = Image.FromFile(@"..\..\..\img/spaceship/spaceship.png");
+        private Image image = new Bitmap(spaceship);
         private int energy = 100;
         public int Energy
         {
