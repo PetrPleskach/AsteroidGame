@@ -8,7 +8,7 @@ namespace EmployeeClasses
     {        
         public FixedPayEmploee(string name, string surName, int age, decimal salary) : base(name, surName, age)
         {
-            id = ("F" + age + name[^1] + surName[0] + random.Next(100, 1000)).ToUpper();
+            id = ("F" + random.Next(100, 1000));
             PaymentCalculation(salary);
         }
 

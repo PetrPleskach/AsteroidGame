@@ -8,7 +8,7 @@ using System.Drawing;
 namespace AsteroidGame.VisualObjects
 {
     class Asteroid : BaseVisualObject, ICollision
-    {
+    {        
         private Bitmap image;
         private static List<Bitmap> asteroidSkins = new List<Bitmap>()
         {
@@ -21,13 +21,13 @@ namespace AsteroidGame.VisualObjects
             new Bitmap(@"..\..\..\img/asteroids/pngegg (9).png"),
             new Bitmap(@"..\..\..\img/asteroids/pngegg (10).png"),
         };
-        private int durability;
+        private int durability;//Переменная отвечающая за прочность текущего астероида
 
         //Свойства
         public Rectangle Rect => new Rectangle(position, size);
-        public static int Power { get; set; } = 1;
+        public static int Power { get; set; } = 1; //Переменная отвечает за максимальную прочность всех астероидов увеличивается по мере уничтожения определенного числа астероидов игроком
 
-        public int Durability { set => durability = value; get => durability; }
+        public int Durability { get => durability; set => durability = value; }
 
         public Asteroid() : base       
             (new Point(Game.Width, random.Next(0, Game.Height)), new Point(random.Next(5, 7), random.Next(-2, 3)), new Size(40, 40))
