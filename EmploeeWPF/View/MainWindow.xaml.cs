@@ -32,6 +32,7 @@ namespace EmploeeWPF
         {
             //Создаем новое окно в которое передаем контекст данных и выбранный департамент
             var empWindow = new EmployeeAddOrCreateWindow((MainWindowViewModel)DataContext, DepartamentsBox.SelectedItem as Departament);
+            empWindow.Owner = this;
             empWindow.ShowDialog();
             
         }
@@ -46,7 +47,8 @@ namespace EmploeeWPF
 
             //Создаем новое окно куда передаем контекст данных, выбранный департамент и выбранного сотрудника
             var model = (MainWindowViewModel)DataContext;
-            var empWindow = new EmployeeAddOrCreateWindow(model , model.Departaments[DepartamentsBox.SelectedIndex],  employesDataGrid.SelectedItem as FixedPayEmploee);
+            var empWindow = new EmployeeAddOrCreateWindow(model , DepartamentsBox.SelectedItem as Departament,  employesDataGrid.SelectedItem as FixedPayEmploee);
+            empWindow.Owner = this;
             empWindow.ShowDialog();
 
         }

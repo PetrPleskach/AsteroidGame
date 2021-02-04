@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EmploeeWPF"               
         mc:Ignorable="d"
-        Title="Создание/Редактирование департамента" Height="250" Width="600" WindowStartupLocation="CenterOwner">
+        Title="Создание/Редактирование департамента" Height="200" Width="600" WindowStartupLocation="CenterOwner">
 
     <Window.Resources>
 

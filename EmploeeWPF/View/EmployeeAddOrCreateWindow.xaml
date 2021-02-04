@@ -44,7 +44,7 @@
                     <Button x:Name="CancelButton" HorizontalAlignment="Center" Width="150" VerticalAlignment="Center" Content="Отмена"
                             Click="onCancelButton_Click"/>
 
-                    <Button HorizontalAlignment="Center" Width="150" VerticalAlignment="Bottom" Content="Выйти без сохранения"
+                    <Button HorizontalAlignment="Center" Width="150" VerticalAlignment="Bottom" Content="Выxод"
                         Click="onExitButton_Click"/> 
                 </Grid>
             </Border>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EmploeeWPF.Model"
         xmlns:vm="clr-namespace:EmploeeWPF.ViewModel"
         mc:Ignorable="d"
-        Title="Список сотрудников" Height="600" Width="800">
+        Title="Список сотрудников" Height="600" Width="800" WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
