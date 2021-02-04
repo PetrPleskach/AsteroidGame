@@ -38,11 +38,15 @@
 
             <Border Style="{StaticResource BorderStyle}">
                 <Grid VerticalAlignment="Stretch" Grid.Column="1">
-                        <Button HorizontalAlignment="Center" Width="150" VerticalAlignment="Top" Content="Сохранить"
-                            Click="onSaveButton_Click"/>
-                        <Button HorizontalAlignment="Center" Width="150" VerticalAlignment="Bottom" Content="Отмена"
+                    <Button HorizontalAlignment="Center" Width="150" VerticalAlignment="Top" Content="Сохранить"
+                        Click="onSaveButton_Click"/>
+
+                    <Button x:Name="CancelButton" HorizontalAlignment="Center" Width="150" VerticalAlignment="Center" Content="Отмена"
                             Click="onCancelButton_Click"/>
-                    </Grid>
+
+                    <Button HorizontalAlignment="Center" Width="150" VerticalAlignment="Bottom" Content="Выйти без сохранения"
+                        Click="onExitButton_Click"/> 
+                </Grid>
             </Border>
         </DockPanel>        
     </Grid>

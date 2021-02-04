@@ -34,6 +34,8 @@ namespace EmploeeWPF
             InitializeComponent();            
             DataContext = model;
             DepartamentComboBox.SelectedIndex = model.Departaments.IndexOf(departament);
+            Title = "Создание сотрудника";
+            CancelButton.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -46,14 +48,10 @@ namespace EmploeeWPF
         {
             InitializeComponent();
             DataContext = model; //Инициализируем контекст данных
-            IdTextBox.Text = emploeeToEdit.Id;
-            NameTextBox.Text = emploeeToEdit.Name;
-            SurnameTextBox.Text = emploeeToEdit.Surname;
-            AgeTextBox.Text = emploeeToEdit.Age.ToString();
-            SalaryTextBox.Text = emploeeToEdit.Salary.ToString();
-            DepartamentComboBox.SelectedIndex = model.Departaments.IndexOf(departament);
             this.emploeeToEdit = emploeeToEdit;
             departamentToChange = departament;
+            FillEditableWindowElements(departament, emploeeToEdit);
+            Title = "Редактирование сотрудника";            
         }
 
         private void onSaveButton_Click(object sender, RoutedEventArgs e)
@@ -88,7 +86,27 @@ namespace EmploeeWPF
 
         private void onCancelButton_Click(object sender, RoutedEventArgs e)
         {
+            FillEditableWindowElements(departamentToChange, emploeeToEdit);
+        }
+
+        private void onExitButton_Click(object sender, RoutedEventArgs e)
+        {
             Close();
+        }
+
+        /// <summary>
+        /// Метод для заполнения начальных данных в редактируемых элементах окна
+        /// </summary>
+        /// <param name="departament"></param>
+        /// <param name="emploee"></param>
+        private void FillEditableWindowElements(Departament departament, FixedPayEmploee emploee)
+        {
+            IdTextBox.Text = emploeeToEdit.Id;
+            NameTextBox.Text = emploeeToEdit.Name;
+            SurnameTextBox.Text = emploeeToEdit.Surname;
+            AgeTextBox.Text = emploeeToEdit.Age.ToString();
+            SalaryTextBox.Text = emploeeToEdit.Salary.ToString();
+            DepartamentComboBox.SelectedItem = departamentToChange;
         }
     }
 }

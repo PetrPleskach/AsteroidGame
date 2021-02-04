@@ -31,6 +31,7 @@ namespace EmploeeWPF
         public DepartamentAddOrEditWindow()
         {
             InitializeComponent();
+            Title = "Создание департамента";
         }
 
         /// <summary>
@@ -43,6 +44,7 @@ namespace EmploeeWPF
             InitializeComponent();
             DepartamentName.Text = model.Departaments[index].Name;
             this.index = index;
+            Title = "Редактирование департамента";
         }
 
         private void onSaveBtn_Click(object sender, RoutedEventArgs e)
