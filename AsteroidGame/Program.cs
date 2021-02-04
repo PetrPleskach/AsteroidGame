@@ -71,7 +71,7 @@ namespace AsteroidGame
                 e.Cancel = true;
             else
             {
-                Game.TimerStop = true;
+                Game.TimerEnable = false;
                 textLogger.LogInfo("Application closed");
                 debugLogger.LogInfo("Application closed");
             }

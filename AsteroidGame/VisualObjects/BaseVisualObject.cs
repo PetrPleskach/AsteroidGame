@@ -13,8 +13,14 @@ namespace AsteroidGame.VisualObjects
 
         //Свойства
         public bool IsEnabled { get; set; } = true;
-        
-        protected BaseVisualObject(Point position, Point direction, Size size)//конструктор для задания базовых параметров
+
+        /// <summary>
+        ///Конструктор для задания базовых параметров
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="direction"></param>
+        /// <param name="size"></param>
+        protected BaseVisualObject(Point position, Point direction, Size size)
         {
             this.position = position;
             this.direction = direction;

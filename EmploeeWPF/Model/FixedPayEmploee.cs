@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EmployeeClasses
+namespace EmploeeWPF.Model
 {
-    class FixedPayEmploee : Employee
+    public class FixedPayEmploee : Employee
     {        
         public FixedPayEmploee(string name, string surName, int age, decimal salary) : base(name, surName, age)
         {

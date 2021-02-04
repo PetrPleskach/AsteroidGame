@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EmployeeClasses
+namespace EmploeeWPF.Model
 {
-    class HourlyPayEmployee : Employee
+    public class HourlyPayEmployee : Employee
     {
         public HourlyPayEmployee(string name, string surName, int age, decimal rate) : base(name, surName, age)
         {
-            id = ("H" + random.Next(100, 1000));
+            id = ("H" + age + name[^1] + surName[0] + random.Next(100, 1000)).ToUpper();
             PaymentCalculation(rate);
         }
 

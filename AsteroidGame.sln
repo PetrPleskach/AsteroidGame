@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{95AFE9A1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleTest", "Tests\ConsoleTest\ConsoleTest.csproj", "{B9459491-41BD-428A-B17E-796D58A895B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeClasses", "EmployeeClasses\EmployeeClasses.csproj", "{22B6E17D-26DF-42AB-AF81-E4A39BFDE2F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeClasses", "EmployeeClasses\EmployeeClasses.csproj", "{22B6E17D-26DF-42AB-AF81-E4A39BFDE2F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmploeeWPF", "EmploeeWPF\EmploeeWPF.csproj", "{B75A232E-A25B-4BC8-A182-721DE6D1F746}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{22B6E17D-26DF-42AB-AF81-E4A39BFDE2F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22B6E17D-26DF-42AB-AF81-E4A39BFDE2F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22B6E17D-26DF-42AB-AF81-E4A39BFDE2F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B75A232E-A25B-4BC8-A182-721DE6D1F746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B75A232E-A25B-4BC8-A182-721DE6D1F746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B75A232E-A25B-4BC8-A182-721DE6D1F746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B75A232E-A25B-4BC8-A182-721DE6D1F746}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

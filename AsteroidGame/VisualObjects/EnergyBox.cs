@@ -4,13 +4,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AsteroidGame.Properties.Resources;
 
 namespace AsteroidGame.VisualObjects
 {
     class EnergyBox : CollisionObject, ICollision
     {
         //Основные поля
-        private static Image image = Image.FromFile(@"..\..\..\img/energybox/energybox.png");
+        private static Image image = new Bitmap(energybox);
         private const int energyBoxSizeX = 30;
         private const int energyBoxSizeY = 30;
         private int energyBoxSpeedX = 5;

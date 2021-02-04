@@ -9,10 +9,10 @@ namespace AsteroidGame
 {
 
     static class Game
-    {        
+    {
         //Основные поля
         private static Timer timer;//Добавляем таймер
-        private static Random random = new Random(); 
+        private static Random random = new Random();
         private static BufferedGraphicsContext contex;
         private static BufferedGraphics buffer;
         private static int width;//ширина игровой области
@@ -21,7 +21,7 @@ namespace AsteroidGame
 
         //События
         public delegate void Message(string message);
-        public static event Message Logging;        
+        public static event Message Logging;
 
         //Количество обьектов разных типов в игре
         private const int numOfPLanets = 2;
@@ -30,7 +30,7 @@ namespace AsteroidGame
         private const int numOfSmallStars = 100;
 
         private static int numOfAsteroids = 5;
-        
+
         //Игровые обьекты
         private static List<Bullet> bullets;
         private static SpaceShip spaceShip;
@@ -39,24 +39,35 @@ namespace AsteroidGame
         private static BaseVisualObject[] backgroundObjects;//Массив обьектов для отрисовки
 
         //Свойства
-        public static int Width { get => width;
-            set 
+        public static int Width
+        {
+            get => width;
+            set
             {
-                if (value > 1000 || value < 0)                    
+                if (value > 1000 || value < 0)
                     throw new ArgumentOutOfRangeException("Ширина окна не может быть больше 1000px или 0px");
                 else
                     width = value;
-            } }
-        public static int Height { get => heigth;
-            set 
+            }
+        }
+        public static int Height
+        {
+            get => heigth;
+            set
             {
                 if (value > 1000 || value < 0)
                     throw new ArgumentOutOfRangeException("Высота окна не может быть больше 1000px или 0px");
                 else
                     heigth = value;
-            } }
+            }
+        }
+
         public static int Score => score;
-        public static bool TimerStop { set {if(value) timer.Stop(); } }
+        public static bool TimerEnable
+        {
+            get => timer.Enabled;
+            set { if (value) timer.Start(); else timer.Stop(); }
+        }
 
         public static void Initialize(Form form)
         {
@@ -67,7 +78,7 @@ namespace AsteroidGame
             contex = BufferedGraphicsManager.Current;// Предоставляет доступ к главному буферу графического контекста для текущего приложения
             Graphics graphics = form.CreateGraphics();// Создаем объект (поверхность рисования) и связываем его с формой
             // Связываем буфер в памяти с графическим объектом, чтобы рисовать в буфере
-            buffer = contex.Allocate(graphics, new Rectangle(0,0, Width, Height));
+            buffer = contex.Allocate(graphics, new Rectangle(0, 0, Width, Height));
             Load();//Выполняем загрузку обьектов
             timer = new Timer { Interval = 100 };//задаём интервал для вызова события
             timer.Tick += Timer_Tick;//Добавляем обработчик к событию таймера
@@ -80,14 +91,14 @@ namespace AsteroidGame
             switch (e.KeyCode)
             {
                 case Keys.Space:
-                case Keys.ControlKey:                    
+                case Keys.ControlKey:
                     Bullet disableBullet = bullets.FirstOrDefault(b => !b.IsEnabled);
                     if (Bullet.StartPositionLeft)
                     {
                         e.SuppressKeyPress = true;
                         Bullet.StartPositionLeft = false;
                         if (disableBullet != null)
-                            disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width/2, spaceShip.Rect.Y));                        
+                            disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y));
                         else
                             bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y)));
                     }
@@ -98,7 +109,7 @@ namespace AsteroidGame
                         if (disableBullet != null)
                             disableBullet.ResetPosition(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height));
                         else
-                            bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height))); 
+                            bullets.Add(new Bullet(new Point(spaceShip.Rect.X + spaceShip.Size.Width / 2, spaceShip.Rect.Y + spaceShip.Size.Height)));
                     }
                     break;
                 case Keys.Up:
@@ -122,9 +133,9 @@ namespace AsteroidGame
         private static void Timer_Tick(object sender, EventArgs e)
         {
             Draw();
-            
+
             Update();
-        }        
+        }
 
         private static void Load()
         {
@@ -132,7 +143,7 @@ namespace AsteroidGame
             backgroundObjects = new BaseVisualObject[length];
             asteroids = new List<Asteroid>(numOfAsteroids);
             asteroids.Load(numOfAsteroids);
-            List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>(length);            
+            List<BaseVisualObject> gameObjectsList = new List<BaseVisualObject>(length);
 
             #region заполняем gameObjectsList
             for (int i = 0; i < numOfSmallStars; i++)
@@ -159,7 +170,7 @@ namespace AsteroidGame
                     new Point(random.Next(4, 6), 0),
                     90));
             #endregion
-            
+
             backgroundObjects = gameObjectsList.ToArray();
             bullets = new List<Bullet>(50);
             energyBox = new EnergyBox(200) { IsEnabled = false };
@@ -187,7 +198,7 @@ namespace AsteroidGame
 
             foreach (var bullet in bullets.Where(b => b.IsEnabled))
                 bullet.Draw(graphics);
-            
+
             spaceShip.Draw(graphics);
             if (energyBox.IsEnabled) energyBox.Draw(graphics);
             graphics.DrawString("Shields: " + spaceShip.Energy, SystemFonts.DefaultFont, Brushes.Cyan, 0, 0);
@@ -207,7 +218,7 @@ namespace AsteroidGame
                 bullet.Update();
 
             energyBox.Update();//Обновление положения аптечки
-            if (energyBox.IsEnabled && spaceShip.CheckCollision(energyBox)) energyBox.IsEnabled = false;            
+            if (energyBox.IsEnabled && spaceShip.CheckCollision(energyBox)) energyBox.IsEnabled = false;
 
             foreach (Asteroid asteroid in asteroids.Where(a => a.IsEnabled))
             {
@@ -215,8 +226,8 @@ namespace AsteroidGame
                 {
                     if (bullet.CheckCollision(asteroid))
                     {
-                        asteroid.Durability--;
-                        if (asteroid.Durability <= 0) asteroid.IsEnabled = false;
+                        asteroid.Durability--;//При столкновении пули с астероидом уменьшаем его прочность
+                        if (asteroid.Durability <= 0) asteroid.IsEnabled = false;//Если прочность астероида падает до 0 выключаем его
                         bullet.IsEnabled = false;
                         score++;
                         if (!energyBox.IsEnabled && score % 50 == 0) energyBox.Drop(asteroid);
@@ -225,22 +236,22 @@ namespace AsteroidGame
                 }
                 if (spaceShip.CheckCollision(asteroid))
                 {
-                    asteroid.IsEnabled = false;                    
+                    asteroid.IsEnabled = false;
                 }
             }
             foreach (Bullet bullet in bullets.Where(b => b.Rect.X > width && b.IsEnabled))
-                      bullet.IsEnabled = false;
+                bullet.IsEnabled = false;
 
             if (asteroids.NumOfActiveAsteroids() < numOfAsteroids)
             {
                 numOfAsteroids++;
                 asteroids.ActivateOrAddAsteriod(numOfAsteroids);
-                if(numOfAsteroids > 40)
+                if (numOfAsteroids > 40)//Если число астероидов на экране больше 40, сбрасываем максимальное число астероидов на экране и увеличивам мощьность астероидов
                 {
                     numOfAsteroids = 15;
-                    Asteroid.Power += 3;                    
+                    Asteroid.Power += 3;
                 }
             }
-        }        
+        }
     }
 }

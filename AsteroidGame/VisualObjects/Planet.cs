@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using static AsteroidGame.Properties.Resources;
 
 namespace AsteroidGame.VisualObjects
 {
@@ -8,14 +9,14 @@ namespace AsteroidGame.VisualObjects
         private Bitmap image;//переменная для хранения изображения
         private static List<Bitmap> planetSkins = new List<Bitmap>()//список изображений для планет
         {            
-            new Bitmap(@"..\..\..\img/planets/planet01.png"),
-            new Bitmap(@"..\..\..\img/planets/planet02.png"),
-            new Bitmap(@"..\..\..\img/planets/planet03.png"),
-            new Bitmap(@"..\..\..\img/planets/planet04.png"),
-            new Bitmap(@"..\..\..\img/planets/planet05.png"),
-            new Bitmap(@"..\..\..\img/planets/planet06.png"),
-            new Bitmap(@"..\..\..\img/planets/planet07.png"),
-            new Bitmap(@"..\..\..\img/planets/planet08.png"),
+            new Bitmap(planet01),
+            new Bitmap(planet02),
+            new Bitmap(planet03),
+            new Bitmap(planet04),
+            new Bitmap(planet05),
+            new Bitmap(planet06),
+            new Bitmap(planet07),
+            new Bitmap(planet08),
         };
         
         public Planet(Point position, Point direction, int size) : base(position, direction, new Size(size, size))
