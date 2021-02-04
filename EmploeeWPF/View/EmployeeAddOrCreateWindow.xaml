@@ -13,20 +13,23 @@
         <DockPanel>
             <Border Style="{StaticResource BorderStyle}">
                 <StackPanel Grid.Column ="0">
-                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="ID" HorizontalAlignment="Left"/>
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockStyle}"/>
+                    </StackPanel.Resources>
+                    <TextBlock Text="ID" HorizontalAlignment="Left"/>
                     <TextBox x:Name="IdTextBox" Style="{StaticResource TextBoxStyle}"/>
                     
-                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Имя" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Имя" HorizontalAlignment="Left"/>
                     <TextBox Name="NameTextBox" Style="{StaticResource TextBoxStyle}"/>
                     
-                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Фамилия" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Фамилия" HorizontalAlignment="Left"/>
                     <TextBox Name="SurnameTextBox" Style="{StaticResource TextBoxStyle}"/>
                     
-                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Возраст" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Возраст" HorizontalAlignment="Left"/>
                     <TextBox Name="AgeTextBox" Style="{StaticResource TextBoxStyle}"
                              />
                     
-                    <TextBlock Style="{StaticResource TextBlockStyle}" Text="Зарплата" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Зарплата" HorizontalAlignment="Left"/>
                     <TextBox Name="SalaryTextBox" Style="{StaticResource TextBoxStyle}"
                             />
                     

@@ -22,14 +22,25 @@ namespace EmploeeWPF.Model
     class EmployeeSortByCriteria : IComparer<Employee>
     {
         private SortCriteria criteria;//критерий сортировки
-        public EmployeeSortByCriteria(SortCriteria criteria) //конструктор с критерием сортировки
+
+        /// <summary>
+        /// конструктор с критерием сортировки из Enum SortCriteria
+        /// </summary>
+        /// <param name="criteria"></param>
+        public EmployeeSortByCriteria(SortCriteria criteria)
         {
             this.criteria = criteria;
         }
 
+        /// <summary>
+        /// В зависимости от вырбанного критерия сортируем элементы массива
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public int Compare(Employee x, Employee y)
         {
-            switch (criteria)// В зависимости от вырбанного критерия сортируем элементы массива
+            switch (criteria)
             {
                 case SortCriteria.Name:
                     return SortByName(x, y);

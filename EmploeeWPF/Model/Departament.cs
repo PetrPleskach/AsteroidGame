@@ -33,7 +33,7 @@ namespace EmploeeWPF.Model
 
         public ObservableCollection<FixedPayEmploee> Employees { get; set; }
 
-        private void NotifyPropertyChanged(string propertyName = "")
+        private void NotifyPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

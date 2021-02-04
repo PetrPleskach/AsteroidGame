@@ -22,7 +22,7 @@ namespace EmploeeWPF
     public partial class EmployeeAddOrCreateWindow : Window
     {
         private FixedPayEmploee emploeeToEdit; // Ссылка на сотрудника для редактирования
-        Departament departamentToChange; // Ссылка на департамент для изменения
+        private Departament departamentToChange; // Ссылка на департамент для изменения
 
         /// <summary>
         /// Конструктор для добавления нового сотрудника

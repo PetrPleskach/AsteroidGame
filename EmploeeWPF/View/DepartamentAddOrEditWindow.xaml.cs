@@ -77,10 +77,7 @@ namespace EmploeeWPF
         /// <returns></returns>
         private bool DepartamentAlreadyExistIn(MainWindowViewModel model)
         {
-            foreach (var item in model.Departaments.Where(i => i.Name == DepartamentName.Text))            
-                return true;
-            
-            return false;
+            return model.Departaments.Any(i => i.Name == DepartamentName.Text);
         }
     }
 }

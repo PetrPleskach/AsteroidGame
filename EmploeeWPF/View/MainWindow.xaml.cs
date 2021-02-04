@@ -49,6 +49,7 @@ namespace EmploeeWPF
             var model = (MainWindowViewModel)DataContext;
             var empWindow = new EmployeeAddOrCreateWindow(model , DepartamentsBox.SelectedItem as Departament,  employesDataGrid.SelectedItem as FixedPayEmploee);
             empWindow.Owner = this;
+
             empWindow.ShowDialog();
 
         }

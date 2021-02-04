@@ -21,40 +21,50 @@ namespace EmploeeWPF.Model
 
         public string Id
         {
-            get => id; set
+            get => id; 
+            set
             {
+                if (Equals(id, value)) return;
                 id = value;
                 NotifyPropertyChanged();
             }
         }
         public string Name
         {
-            get => name; set
+            get => name;
+            set
             {
+                if (Equals(name, value)) return;
                 name = value;
                 NotifyPropertyChanged();
             }
         }
         public string Surname
         {
-            get => surName; set
+            get => surName;
+            set
             {
+                if (Equals(surName, value)) return;
                 surName = value;
                 NotifyPropertyChanged();
             }
         }
         public int Age
         {
-            get => age; set
+            get => age;
+            set
             {
+                if (age == value) return;
                 age = value;
                 NotifyPropertyChanged();
             }
         }
         public decimal Salary
         {
-            get => salary; set
+            get => salary;
+            set
             {
+                if (salary == value) return;
                 salary = value;
                 NotifyPropertyChanged();
             }
@@ -85,7 +95,7 @@ namespace EmploeeWPF.Model
             return surName.CompareTo(otherEmployee.surName);
         }
 
-        private void NotifyPropertyChanged(string propertyName = "")
+        private void NotifyPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
